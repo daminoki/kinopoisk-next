@@ -1,0 +1,52 @@
+@mixin tablet {
+    @media (max-width: 1023px) {
+        @content;
+    }
+}
+
+@mixin pad {
+    @media (max-width: 767px) {
+        @content;
+    }
+}
+
+@mixin phone {
+    @media (max-width: 425px) {
+        @content;
+    }
+}
+
+@mixin h1 {
+    font-size: 60px;
+    line-height: 120%;
+    font-style: normal;
+    font-weight: 700;
+}
+
+@mixin h2 {
+    font-size: 40px;
+    line-height: 120%;
+    font-style: normal;
+    font-weight: 500;
+}
+
+@mixin h3 {
+    font-size: 32px;
+    line-height: 120%;
+    font-style: normal;
+    font-weight: 500;
+}
+
+@mixin txt20 {
+    font-size: 20px;
+    line-height: 120%;
+    font-style: normal;
+    font-weight: 400;
+}
+
+@mixin txt16 {
+    font-size: 16px;
+    line-height: 120%;
+    font-style: normal;
+    font-weight: 400;
+}
