@@ -37,6 +37,28 @@
     font-weight: 500;
 }
 
+@mixin h4 {
+    font-size: 20px;
+    line-height: 120%;
+    font-style: normal;
+    font-weight: 500;
+}
+
+@mixin h5 {
+    font-size: 16px;
+    line-height: 120%;
+    font-style: normal;
+    font-weight: 600;
+}
+
+@mixin h6 {
+    font-size: 13px;
+    line-height: 120%;
+    font-style: normal;
+    font-weight: 600;
+}
+
+
 @mixin txt20 {
     font-size: 20px;
     line-height: 120%;
@@ -46,6 +68,13 @@
 
 @mixin txt16 {
     font-size: 16px;
+    line-height: 120%;
+    font-style: normal;
+    font-weight: 400;
+}
+
+@mixin txt13 {
+    font-size: 13px;
     line-height: 120%;
     font-style: normal;
     font-weight: 400;
