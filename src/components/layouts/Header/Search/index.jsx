@@ -5,6 +5,8 @@ import { useState, useEffect, useMemo, useRef } from 'react';
 import { SearchItem } from '@/components/layouts/Header/Search/SearchItem';
 import { getSearchResult } from '@/api';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
 export const Search = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [searchParams, setSearchParams] = useState({
@@ -15,6 +17,7 @@ export const Search = () => {
   const [searchValue, setSearchValue] = useState('');
   const ref = useRef();
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
+  const router = useRouter();
 
   const handleInputChange = (value) => {
     setSearchValue(value);
@@ -50,20 +53,35 @@ export const Search = () => {
     fetchData();
   }, [searchParams.query]);
 
+  const handleSearch = (event) => {
+    event.preventDefault();
+    setIsDropdownOpened(false);
+
+    console.log(searchValue);
+
+    if (searchValue) {
+      router.push(`/search?query=${searchValue}`);
+    }
+  };
+
+
   return (
     <div className={styles.search}>
-      <input value={searchValue} className={styles.search__input} type={'search'} placeholder={'Найти'}
-        onChange={(e) => {
-          handleInputChange(e.target.value);
-          optimizesHandleInputChange(e.target.value);}}
-        onFocus={() => setIsDropdownOpened(true)}
-      />
+      <form onSubmit={(e) => handleSearch(e)}>
+        <input value={searchValue} className={styles.search__input} type={'search'} placeholder={'Найти'}
+          onInput={(e) => {
+            handleInputChange(e.target.value);
+            optimizesHandleInputChange(e.target.value);
+          }}
+          onFocus={() => setIsDropdownOpened(true)}
+        />
+      </form>
 
-      <button type={'button'} className={styles.search__submit}>
+      <button type={'button'} className={styles.search__submit} onClick={(e) => handleSearch(e)}>
         <SearchIcon/>
       </button>
 
-      { isDropdownOpened && (<div className={styles.search__result}>
+      {isDropdownOpened && (<div className={styles.search__result}>
         <ul className={styles.search__list}>
           {searchResult.map((result) => (
             <SearchItem
@@ -77,13 +95,9 @@ export const Search = () => {
         </ul>
 
         {searchResult.length > 0 && (
-          <Link href={{
-            pathname: '/search',
-            query: { query: searchParams.query },
-          }}
-          className={styles['search__view-all']} onClick={() => setIsDropdownOpened(false)}>
+          <button className={styles['search__view-all']} onClick={(e) => handleSearch(e)}>
               Показать все
-          </Link>
+          </button>
         )}
       </div>)
       }
