@@ -13,52 +13,13 @@
     display: flex;
     width: 164px;
     height: 36px;
-  }
-
-  &__search {
-    width: 380px;
-    background-color: var(--bg-light-dark);
-    padding: 8px 30px 8px 12px;
-    border-radius: var(--br-default);
-    position: relative;
-    transition: background-color 0.3s ease-in-out;
-
-    &:focus-within {
-      background-color: var(--typo-light);
-
-      & .header__search-submit {
-        color: var(--typo-dark);
-      }
-
-      & .header__input {
-        color: var(--typo-dark);
-      }
-    }
-  }
-
-  &__search-submit {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 8px;
-    color: var(--typo-gray);
-    transition: color 0.3s ease-in-out;
-    cursor: pointer;
-  }
-
-  &__input {
-    width: 100%;
     color: var(--typo-light);
     transition: color 0.3s ease-in-out;
 
-    &::placeholder {
-      @include txt16;
-
-      color: var(--typo-gray);
-    }
-
-    &::-webkit-search-cancel-button {
-      display: none;
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        color: var(--typo-contrast);
+      }
     }
   }
 

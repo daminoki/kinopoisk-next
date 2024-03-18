@@ -1,0 +1,57 @@
+.search-item {
+  &__link {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    padding: 8px;
+    transition: background-color 0.3s ease-in-out;
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background-color: var(--bg-light-dark);
+      }
+    }
+  }
+
+  &__img {
+    min-width: 32px;
+    width: 32px;
+    height: 48px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: flex;
+    }
+  }
+
+  &__title {
+    @include h5;
+    color: var(--typo-dark);
+  }
+
+  &__bottom {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  &__release-year {
+    @include txt13;
+
+    color: var(--typo-dark);
+  }
+
+  &__rating {
+    @include h6;
+
+    color: var(--typo-dark);
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+}

@@ -4,6 +4,9 @@ const nextConfig = {
         additionalData: '@import "src/styles/mixins.scss";',
     },
     output: 'standalone',
+    images: {
+        domains: ['image.openmoviedb.com'],
+    },
     webpack(config) {
         config.module.rules.push({
             test: /\.svg$/i,
