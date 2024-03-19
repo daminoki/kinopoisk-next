@@ -1,4 +1,10 @@
 .search {
+  @include pad {
+    background-color: transparent;
+    width: 100%;
+    padding: 8px;
+  }
+
   width: 380px;
   background-color: var(--bg-input);
   padding: 8px 30px 8px 12px;
@@ -7,6 +13,10 @@
   transition: background-color 0.3s ease-in-out;
 
   &:focus-within {
+    @include pad {
+      background-color: transparent;
+    }
+
     background-color: var(--typo-light);
 
     & .search__submit {
@@ -14,6 +24,11 @@
     }
 
     & .search__input {
+      @include pad {
+        display: block;
+        color: var(--typo-light);
+      }
+
       color: var(--typo-dark);
     }
 
@@ -24,6 +39,10 @@
   }
 
   &__submit {
+    @include pad {
+      display: none;
+    }
+
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -33,7 +52,33 @@
     cursor: pointer;
   }
 
+  &__submit-mob {
+    @include pad {
+        display: block;
+    }
+
+    display: none;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    color: var(--typo-gray);
+  }
+
   &__input {
+    @include txt16;
+
+    @include pad {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: var(--bg-input-mob);
+      padding: 16px;
+      height: 56px;
+      z-index: 3;
+    }
+
     width: 100%;
     color: var(--typo-light);
     transition: color 0.3s ease-in-out;
@@ -50,6 +95,12 @@
   }
 
   &__result {
+    @include pad {
+      position: fixed;
+      top: 56px;
+      left: 0;
+    }
+
     position: absolute;
     top: calc(100% + 5px);
     left: 0;
@@ -84,5 +135,12 @@
         color: var(--typo-light);
       }
     }
+  }
+
+  &__empty {
+    @include txt16;
+
+    padding: 32px;
+    text-align: center;
   }
 }

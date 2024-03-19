@@ -2,6 +2,11 @@
   background-color: var(--bg-dark);
 
   &__container {
+    @include pad {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+
     padding-top: 18px;
     padding-bottom: 18px;
     display: flex;
@@ -24,6 +29,10 @@
   }
 
   &__panel {
+    @include pad {
+      gap: 10px;
+    }
+
     display: flex;
     gap: 20px;
   }
