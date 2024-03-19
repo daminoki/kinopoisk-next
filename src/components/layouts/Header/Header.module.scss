@@ -1,0 +1,53 @@
+.header {
+  background-color: var(--bg-dark);
+
+  &__container {
+    @include pad {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+
+    padding-top: 18px;
+    padding-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo {
+    display: flex;
+    width: 164px;
+    height: 36px;
+    color: var(--typo-light);
+    transition: color 0.3s ease-in-out;
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        color: var(--typo-contrast);
+      }
+    }
+  }
+
+  &__panel {
+    @include pad {
+      gap: 10px;
+    }
+
+    display: flex;
+    gap: 20px;
+  }
+
+  &__login {
+    @include txt16;
+
+    color: var(--typo-gray);
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        color: var(--typo-light);
+      }
+    }
+  }
+}
