@@ -1,4 +1,14 @@
 .search {
-  &__container {
+  &__title {
+    @include h2;
+
+    padding-bottom: 50px;
+    color: var(--typo-dark);
+  }
+
+  &__empty {
+    @include txt20;
+
+    color: var(--typo-dark);
   }
 }
