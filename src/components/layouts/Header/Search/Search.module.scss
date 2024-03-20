@@ -3,6 +3,7 @@
     background-color: transparent;
     width: 100%;
     padding: 8px;
+    position: static;
   }
 
   width: 380px;
@@ -11,32 +12,6 @@
   border-radius: var(--br-default);
   position: relative;
   transition: background-color 0.3s ease-in-out;
-
-  &:focus-within {
-    @include pad {
-      background-color: transparent;
-    }
-
-    background-color: var(--typo-light);
-
-    & .search__submit {
-      color: var(--typo-dark);
-    }
-
-    & .search__input {
-      @include pad {
-        display: block;
-        color: var(--typo-light);
-      }
-
-      color: var(--typo-dark);
-    }
-
-    & .search__result {
-      opacity: 1;
-      pointer-events: all;
-    }
-  }
 
   &__submit {
     @include pad {
@@ -69,14 +44,19 @@
 
     @include pad {
       display: none;
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       background-color: var(--bg-input-mob);
-      padding: 16px;
+      padding: 16px 48px 16px 16px;
       height: 56px;
       z-index: 3;
+
+      &_active {
+        display: block;
+        color: var(--typo-light);
+      }
     }
 
     width: 100%;
@@ -96,7 +76,6 @@
 
   &__result {
     @include pad {
-      position: fixed;
       top: 56px;
       left: 0;
     }
@@ -109,8 +88,6 @@
     border-radius: var(--br-default);
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     z-index: 1;
-    opacity: 0;
-    pointer-events: none;
     transition: opacity 0.3s ease-in-out;
     overflow: hidden;
   }
@@ -142,5 +119,28 @@
 
     padding: 32px;
     text-align: center;
+  }
+
+  &__close {
+    display: none;
+
+    &_active {
+      @include pad {
+        display: block;
+        width: 24px;
+        height: 24px;
+        color: var(--typo-light);
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        z-index: 10;
+        cursor: pointer;
+
+        svg {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
   }
 }

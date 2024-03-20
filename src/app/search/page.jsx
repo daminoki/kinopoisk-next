@@ -15,9 +15,11 @@ export default function Search() {
     limit: 10,
     query: ''
   });
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchResultTotal, setSearchResultTotal] = useState(null);
 
   const fetchSearchResult = async () => {
+    console.log('searchParams.query', searchParams.query);
     if (!searchParams.query) {
       return;
     }
@@ -25,6 +27,7 @@ export default function Search() {
     const result = await getSearchResult(searchParams);
 
     setSearchResult(result.docs);
+    setSearchResultTotal(result.total);
   };
 
   useEffect(() => {
@@ -36,7 +39,6 @@ export default function Search() {
 
   useEffect(() => {
     async function fetchData() {
-      setIsLoading(true);
       await fetchSearchResult();
       setIsLoading(false);
     }
@@ -48,25 +50,30 @@ export default function Search() {
     <div className={styles.search}>
       <div className='container'>
         <h1 className={styles.search__title}>Результаты поиска</h1>
-
         {isLoading && <Loader />}
 
-        {!isLoading && searchResult.length === 0 && (
+        {!isLoading && searchResultTotal === 0 && (
           <p className={styles.search__empty}>По вашему запросу ничего не найдено</p>
         )}
 
         {!isLoading && searchResult.length > 0 && (
-          <ul className={styles.search__result}>
-            {searchResult.map((item) => (
-              <SearchItem
-                key={item.id}
-                title={item.name}
-                imgSrc={item.poster.previewUrl}
-                year={item.year}
-                rating={item.rating.kp}
-              />
-            ))}
-          </ul>
+          <>
+            <p className={styles.search__total}>Всего найдено: {searchResultTotal}</p>
+
+            <ul className={styles.search__result}>
+              {searchResult.map((item, id) => (
+                <SearchItem
+                  key={item.id}
+                  title={item.name}
+                  imgSrc={item.poster.previewUrl}
+                  year={item.year}
+                  rating={item.rating.kp}
+                  count={id + 1}
+                  altName={item.alternativeName}
+                />
+              ))}
+            </ul>
+          </>
         )}
       </div>
     </div>

@@ -11,4 +11,17 @@
 
     color: var(--typo-dark);
   }
+
+  &__total {
+    @include txt16;
+
+    color: var(--typo-dark);
+  }
+
+  &__result {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
 }
