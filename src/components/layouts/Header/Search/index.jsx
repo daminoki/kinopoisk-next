@@ -1,5 +1,6 @@
 import styles from './Search.module.scss';
 import SearchIcon from '../../../../../public/icons/search.svg';
+import CloseIcon from '../../../../../public/icons/close.svg';
 import { debounce } from '@/utils/debounce';
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { SearchItem } from '@/components/layouts/Header/Search/SearchItem';
@@ -17,6 +18,7 @@ export const Search = () => {
   const [searchValue, setSearchValue] = useState('');
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSearchActive, setIsSearchActive] = useState(false);
   const ref = useRef();
   const router = useRouter();
 
@@ -67,16 +69,38 @@ export const Search = () => {
     }
   };
 
+  const handleSearchButtonClick = () => {
+    setIsSearchActive(!isSearchActive);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest(`.${styles.search}`)) {
+        setIsDropdownOpened(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
+  const handleCloseClick = () => {
+    setIsSearchActive(false);
+    setIsDropdownOpened(false);
+  };
 
   return (
     <div className={styles.search}>
       <form onSubmit={(e) => handleSearch(e)}>
-        <input value={searchValue} className={styles.search__input} type={'search'} placeholder={'Найти'}
+        <input value={searchValue} className={isSearchActive? `${styles.search__input} ${styles['search__input_active']}` : `${styles.search__input}`} type={'search'} placeholder={'Найти'}
           onInput={(e) => {
             handleInputChange(e.target.value);
             optimizesHandleInputChange(e.target.value);
           }}
-          onFocus={() => setIsDropdownOpened(true)}
+          onFocus={() => setIsDropdownOpened(!isDropdownOpened)}
         />
       </form>
 
@@ -84,8 +108,12 @@ export const Search = () => {
         <SearchIcon/>
       </button>
 
-      <button type={'button'} className={styles['search__submit-mob']}>
+      <button type={'button'} className={styles['search__submit-mob']} onClick={handleSearchButtonClick}>
         <SearchIcon/>
+      </button>
+
+      <button type={'button'} className={isSearchActive? `${styles.search__close} ${styles['search__close_active']}` : `${styles.search__close}`} onClick={handleCloseClick}>
+        <CloseIcon/>
       </button>
 
       {isDropdownOpened && (<div className={styles.search__result}>
