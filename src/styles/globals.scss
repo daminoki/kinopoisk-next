@@ -1,3 +1,7 @@
+body {
+    background-color: #dcdcdc;
+}
+
 .page-container {
     display: flex;
     flex-direction: column;
@@ -7,6 +11,10 @@
 .page {
     flex: 1;
     padding: 50px 0 120px;
+    max-width: 1520px;
+    margin: 0 auto;
+    width: 100%;
+    background-color: var(--typo-light);
 
     @include pad {
         padding: 60px 0;

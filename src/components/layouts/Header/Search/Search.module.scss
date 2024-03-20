@@ -3,6 +3,7 @@
     background-color: transparent;
     width: 100%;
     padding: 8px;
+    position: static;
   }
 
   width: 380px;
@@ -43,7 +44,7 @@
 
     @include pad {
       display: none;
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       width: 100%;
@@ -75,7 +76,6 @@
 
   &__result {
     @include pad {
-      position: fixed;
       top: 56px;
       left: 0;
     }
