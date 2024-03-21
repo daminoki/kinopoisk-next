@@ -10,6 +10,10 @@
   }
 
   &__link {
+    @include pad {
+      grid-template-columns: 45px 1fr;
+    }
+
     display: grid;
     grid-template-columns: 30px 90px 1fr;
 
@@ -17,6 +21,7 @@
       &:hover {
         .search-item__title {
           text-decoration: underline;
+          text-decoration-thickness: 1px;
         }
 
         .search-item__count {
@@ -27,12 +32,21 @@
   }
 
   &__count {
+    @include pad {
+      display: none;
+    }
+
     @include txt13;
 
     color: var(--typo-gray-secondary);
   }
 
   &__img {
+    @include pad {
+      width: 45px;
+      height: 67px;
+    }
+
     width: 90px;
     height: 135px;
     overflow: hidden;
@@ -49,7 +63,7 @@
   }
 
   &__title {
-    @include txt16;
+    @include txt20;
 
     color: var(--typo-dark);
     text-decoration-skip-ink: none;
@@ -69,5 +83,39 @@
     @include txt13;
 
     color: var(--typo-gray-secondary);
+  }
+
+  &__genre {
+    @include txt13;
+
+    margin-top: 5px;
+    color: var(--typo-gray-secondary);
+  }
+
+  &__desc {
+    @include txt13;
+
+    margin-top: 20px;
+    color: var(--typo-dark);
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    display: -webkit-box;
+    max-width: 650px;
+  }
+
+  &__top {
+    @include txt13;
+
+    background-color: var(--typo-contrast);
+    color: var(--typo-light);
+    padding: 3px 5px;
+    border-radius: var(--br-default);
+  }
+
+  &__title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 }

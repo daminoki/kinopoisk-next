@@ -17,6 +17,14 @@
 }
 
 @mixin h1 {
+    @include tablet {
+        font-size: 40px;
+    }
+
+    @include pad {
+        font-size: 32px;
+    }
+
     font-size: 60px;
     line-height: 120%;
     font-style: normal;
@@ -24,6 +32,14 @@
 }
 
 @mixin h2 {
+    @include tablet {
+        font-size: 32px;
+    }
+
+    @include pad {
+        font-size: 24px;
+    }
+
     font-size: 40px;
     line-height: 120%;
     font-style: normal;
@@ -60,6 +76,10 @@
 
 
 @mixin txt20 {
+    @include pad {
+        font-size: 16px;
+    }
+
     font-size: 20px;
     line-height: 120%;
     font-style: normal;

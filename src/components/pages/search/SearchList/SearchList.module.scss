@@ -1,0 +1,10 @@
+.search-list {
+  @include pad {
+    padding-top: 30px;
+  }
+
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
