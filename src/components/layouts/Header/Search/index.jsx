@@ -139,9 +139,11 @@ export const Search = () => {
               ))}
             </ul>
 
-            <button className={styles['search__view-all']} onClick={(e) => handleSearch(e)}>
-                  Показать все
-            </button>
+            {searchParams.query &&
+              <button className={styles['search__view-all']} onClick={(e) => handleSearch(e)}>
+                Показать все
+              </button>
+            }
           </>
         )}
       </div>)

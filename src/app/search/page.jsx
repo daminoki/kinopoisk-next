@@ -27,7 +27,14 @@ export default function Search() {
 
     const { docs, total, pages } = await getSearchResult(searchParams);
 
-    setSearchResult(prevSearchResult => [...prevSearchResult, ...docs]);
+    setSearchResult(prevSearchResult => {
+      if (searchParams.page > 1) {
+        return [...prevSearchResult, ...docs];
+      } else {
+        return docs;
+      }
+    });
+
     setSearchResultTotal(total);
     setHasMore(pages > searchParams.page);
     setIsLoading(false);
@@ -41,7 +48,8 @@ export default function Search() {
   useEffect(() => {
     setSearchParams({
       ...searchParams,
-      query: queryParams.get('query')
+      query: queryParams.get('query'),
+      page: 1
     });
   }, [queryParams]);
 

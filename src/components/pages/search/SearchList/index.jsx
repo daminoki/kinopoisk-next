@@ -26,9 +26,12 @@ export const SearchList = ({ searchResult, isLoading, hasMore, loadMore }) => {
               title={item.name}
               imgSrc={item.poster.previewUrl}
               year={item.year}
-              rating={item.rating.kp}
               count={id + 1}
               altName={item.alternativeName}
+              genre={item.genres[0].name}
+              duration={item.movieLength}
+              description={item.description}
+              top250={item.top250}
             />
           );
         }
@@ -39,9 +42,12 @@ export const SearchList = ({ searchResult, isLoading, hasMore, loadMore }) => {
             title={item.name}
             imgSrc={item.poster.previewUrl}
             year={item.year}
-            rating={item.rating.kp}
             count={id + 1}
             altName={item.alternativeName}
+            genre={item.genres[0]?.name}
+            duration={item.movieLength}
+            description={item.description}
+            top250={item.top250}
           />
         );
       })}

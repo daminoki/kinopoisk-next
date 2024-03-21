@@ -1,5 +1,9 @@
 .search {
   &__title {
+    @include pad {
+      padding-bottom: 30px;
+    }
+
     @include h2;
 
     padding-bottom: 50px;
@@ -13,7 +17,7 @@
   }
 
   &__total {
-    @include txt16;
+    @include txt20;
 
     color: var(--typo-dark);
   }
