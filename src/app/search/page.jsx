@@ -2,9 +2,9 @@
 
 import styles from './page.module.scss';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { getSearchResult } from '@/api';
-import { SearchItem } from '@/components/pages/search/SearchItem';
+import { SearchList }from '@/components/pages/search/SearchList';
 import Loader from '@/components/ui/Loader';
 
 export default function Search() {
@@ -17,18 +17,26 @@ export default function Search() {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [searchResultTotal, setSearchResultTotal] = useState(null);
+  const [hasMore, setHasMore] = useState(false);
+  const [isMoreLoading, setIsMoreLoading] = useState(false);
 
   const fetchSearchResult = async () => {
-    console.log('searchParams.query', searchParams.query);
     if (!searchParams.query) {
       return;
     }
 
-    const result = await getSearchResult(searchParams);
+    const { docs, total, pages } = await getSearchResult(searchParams);
 
-    setSearchResult(result.docs);
-    setSearchResultTotal(result.total);
+    setSearchResult(prevSearchResult => [...prevSearchResult, ...docs]);
+    setSearchResultTotal(total);
+    setHasMore(pages > searchParams.page);
+    setIsLoading(false);
   };
+
+  const loadMore = useCallback(() => {
+    setSearchParams( prevSearchParams => ({...prevSearchParams, page: prevSearchParams.page + 1}));
+    setIsMoreLoading(true);
+  }, []);
 
   useEffect(() => {
     setSearchParams({
@@ -40,7 +48,7 @@ export default function Search() {
   useEffect(() => {
     async function fetchData() {
       await fetchSearchResult();
-      setIsLoading(false);
+      setIsMoreLoading(false);
     }
 
     fetchData();
@@ -60,19 +68,7 @@ export default function Search() {
           <>
             <p className={styles.search__total}>Всего найдено: {searchResultTotal}</p>
 
-            <ul className={styles.search__result}>
-              {searchResult.map((item, id) => (
-                <SearchItem
-                  key={item.id}
-                  title={item.name}
-                  imgSrc={item.poster.previewUrl}
-                  year={item.year}
-                  rating={item.rating.kp}
-                  count={id + 1}
-                  altName={item.alternativeName}
-                />
-              ))}
-            </ul>
+            <SearchList searchResult={searchResult} isLoading={isMoreLoading} hasMore={hasMore} loadMore={loadMore} />
           </>
         )}
       </div>

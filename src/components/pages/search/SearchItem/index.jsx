@@ -2,9 +2,9 @@ import styles from './SearchItem.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export const SearchItem = ({ title, imgSrc, year, rating, count, altName }) => {
+export const SearchItem = ({ mesureRef, title, imgSrc, year, rating, count, altName }) => {
   return (
-    <li className={styles['search-item']}>
+    <li className={styles['search-item']} ref={mesureRef}>
       <Link href={'/'} className={styles['search-item__link']}>
         <p className={styles['search-item__count']}>{count}</p>
         <div className={styles['search-item__img']}>
