@@ -9,17 +9,11 @@ body {
 }
 
 .page {
-    @include tablet {
-        padding-bottom: 100px;
-    }
-
     @include pad {
-        padding-bottom: 80px;
         grid-template-columns: 1fr;
     }
 
     flex: 1;
-    padding-bottom: 120px;
     max-width: 1520px;
     margin: 0 auto;
     width: 100%;
@@ -27,6 +21,10 @@ body {
     display: grid;
     grid-template-columns: 200px 1fr;
     gap: 20px;
+}
+
+.page-content {
+    overflow: hidden;
 }
 
 .container {
@@ -45,9 +43,11 @@ body {
 .page-content {
     @include tablet {
         padding-top: 30px;
+        padding-bottom: 80px;
     }
 
     padding-top: 50px;
+    padding-bottom: 100px;
 }
 
 .not-found {

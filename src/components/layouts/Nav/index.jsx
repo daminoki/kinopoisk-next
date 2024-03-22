@@ -4,7 +4,8 @@ import styles from './Nav.module.scss';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
+import HomeIcon from '@mui/icons-material/Home';
+import VideocamIcon from '@mui/icons-material/Videocam';
 
 export const Nav = () => {
   const pathname = usePathname();
@@ -15,10 +16,22 @@ export const Nav = () => {
     <div className={styles.nav}>
       <ul className={styles.nav__list}>
         <li className={styles.nav__item}>
-          <Link href={'/'} className={isActive('/')}>Главная</Link>
+          <Link href={'/'} className={isActive('/')}>
+            <HomeIcon sx={{
+              color: '#141414',
+              transition: 'color .3s ease-in-out',
+            }}/>
+            Главная
+          </Link>
         </li>
         <li className={styles.nav__item}>
-          <Link href={'/films'} className={isActive('/films')}>Фильмы</Link>
+          <Link href={'/films'} className={isActive('/films')}>
+            <VideocamIcon sx={{
+              color: '#141414',
+              transition: 'color .3s ease-in-out',
+            }}/>
+            Фильмы
+          </Link>
         </li>
       </ul>
     </div>

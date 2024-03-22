@@ -1,0 +1,12 @@
+.popular {
+  &__title {
+    @include h4;
+
+    color: var(--typo-dark);
+    padding-bottom: 20px;
+  }
+
+  &__slide {
+    width: 150px;
+  }
+}

@@ -17,19 +17,30 @@
   }
 
   &__link {
-    @include txt16;
+    @include h5;
 
+    display: flex;
+    align-items: center;
+    gap: 3px;
     color: var(--typo-dark);
     transition: color 0.3s ease-in-out;
 
     @media (hover: hover) and (pointer: fine){
       &:hover {
         color: var(--typo-contrast);
+
+        svg {
+            color: var(--typo-contrast);
+        }
       }
     }
 
     &_active {
       color: var(--typo-contrast);
+
+      svg {
+        color: var(--typo-contrast);
+      }
     }
   }
 }
