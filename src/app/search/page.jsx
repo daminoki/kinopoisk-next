@@ -64,22 +64,20 @@ export default function Search() {
 
   return (
     <div className={styles.search}>
-      <div className='container'>
-        <h1 className={styles.search__title}>Результаты поиска</h1>
-        {isLoading && <Loader />}
+      <h1 className={styles.search__title}>Результаты поиска</h1>
+      {isLoading && <Loader />}
 
-        {!isLoading && searchResultTotal === 0 && (
-          <p className={styles.search__empty}>По вашему запросу ничего не найдено</p>
-        )}
+      {!isLoading && searchResultTotal === 0 && (
+        <p className={styles.search__empty}>По вашему запросу ничего не найдено</p>
+      )}
 
-        {!isLoading && searchResult.length > 0 && (
-          <>
-            <p className={styles.search__total}>Всего найдено: {searchResultTotal}</p>
+      {!isLoading && searchResult.length > 0 && (
+        <>
+          <p className={styles.search__total}>Всего найдено: {searchResultTotal}</p>
 
-            <SearchList searchResult={searchResult} isLoading={isMoreLoading} hasMore={hasMore} loadMore={loadMore} />
-          </>
-        )}
-      </div>
+          <SearchList searchResult={searchResult} isLoading={isMoreLoading} hasMore={hasMore} loadMore={loadMore} />
+        </>
+      )}
     </div>
   );
 }
