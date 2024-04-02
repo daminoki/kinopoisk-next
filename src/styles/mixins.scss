@@ -47,17 +47,25 @@
 }
 
 @mixin h3 {
+    @include tablet {
+        font-size: 24px;
+    }
+
     font-size: 32px;
     line-height: 120%;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 700;
 }
 
 @mixin h4 {
-    font-size: 20px;
+    @include tablet {
+        font-size: 20px;
+    }
+
+    font-size: 28px;
     line-height: 120%;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 @mixin h5 {

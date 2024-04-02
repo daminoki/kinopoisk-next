@@ -87,7 +87,7 @@
     background-color: var(--typo-light);
     border-radius: var(--br-default);
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-    z-index: 1;
+    z-index: 5;
     transition: opacity 0.3s ease-in-out;
     overflow: hidden;
   }

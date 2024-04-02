@@ -1,8 +1,9 @@
-import Image from 'next/image';
 import styles from './page.module.css';
+
+import { PopularTvShows } from '@/components/pages/index/PopularTvShows';
 
 export default function Home() {
   return (
-    <div></div>
+    <PopularTvShows />
   );
 }

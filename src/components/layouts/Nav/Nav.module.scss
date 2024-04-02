@@ -1,0 +1,46 @@
+.nav {
+  @include tablet {
+    padding-top: 30px;
+  }
+
+  @include pad {
+    display: none;
+  }
+
+  border-right: 1px solid var(--bg-light-dark);
+  padding-top: 50px;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__link {
+    @include h5;
+
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    color: var(--typo-dark);
+    transition: color 0.3s ease-in-out;
+
+    @media (hover: hover) and (pointer: fine){
+      &:hover {
+        color: var(--typo-contrast);
+
+        svg {
+            color: var(--typo-contrast);
+        }
+      }
+    }
+
+    &_active {
+      color: var(--typo-contrast);
+
+      svg {
+        color: var(--typo-contrast);
+      }
+    }
+  }
+}
