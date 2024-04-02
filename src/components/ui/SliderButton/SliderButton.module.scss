@@ -1,0 +1,38 @@
+.button {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--button-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--button-border);
+  color: var(--typo-dark);
+  pointer-events: all;
+  transition: color .2s ease-in-out, border-color .2s ease-in-out, background-color .2s ease-in-out, opacity .2s ease-in-out;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: var(--typo-contrast);
+      color: var(--typo-light);
+      border-color: var(--typo-contrast);
+    }
+  }
+
+  &:disabled {
+    opacity: .5;
+    pointer-events: none;
+  }
+
+  &_prev {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+
+  svg {
+    width: 15px;
+    height: 15px;
+  }
+}

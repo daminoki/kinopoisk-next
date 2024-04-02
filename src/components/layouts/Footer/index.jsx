@@ -4,8 +4,8 @@ import TelegramIcon from '@mui/icons-material/Telegram';
 
 export const Footer = () => {
   return (
-    <footer className={styles.footer}>
-      <div className={`${styles.footer__container} container`}>
+    <footer className={`${styles.footer} container`}>
+      <div className={styles.footer__container}>
         <div className={styles.footer__info}>
           <p className={styles.footer__years}>© 2024 - {new Date().getFullYear()}, Kinopoisk Clone</p>
           <p className={styles.footer__author}>Creator: <a href="https://github.com/daminoki"

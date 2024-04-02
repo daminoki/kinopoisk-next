@@ -5,6 +5,7 @@ import '@/styles/variables.scss';
 
 import { Header } from '@/components/layouts/Header';
 import { Footer } from '@/components/layouts/Footer';
+import { Nav } from '@/components/layouts/Nav';
 
 const font = Wix_Madefor_Display({ subsets: ['latin'] });
 
@@ -19,7 +20,12 @@ export default function RootLayout({ children }) {
       <body className={font.className}>
         <div className='page-container'>
           <Header></Header>
-          <main className='page'>{children}</main>
+          <main className='page container'>
+            <Nav></Nav>
+            <div className='page-content'>
+              {children}
+            </div>
+          </main>
           <Footer></Footer>
         </div>
       </body>

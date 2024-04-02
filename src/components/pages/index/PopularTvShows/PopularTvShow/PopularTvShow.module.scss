@@ -1,0 +1,39 @@
+.popular-show {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      .popular-show__img img {
+        transform: scale(1.05);
+      }
+
+      .popular-show__title {
+        color: var(--typo-contrast);
+      }
+    }
+  }
+
+  &__img {
+    overflow: hidden;
+
+    & img {
+      transition: transform .3s ease-in-out;
+    }
+  }
+
+  &__info {
+    padding-top: 10px;
+  }
+
+  &__title {
+    @include h5;
+
+    color: var(--typo-dark);
+    transition: color .3s ease-in-out;
+  }
+
+  &__row {
+    @include txt13;
+
+    color: var(--typo-gray-secondary);
+    padding-top: 5px;
+  }
+}
