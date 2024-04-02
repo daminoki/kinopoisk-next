@@ -1,6 +1,6 @@
 export interface IFetchParams {
-    page: string;
-    limit: string;
+    page: string | number;
+    limit: string | number;
     query?: string;
     type?: string;
     top250?: string;
