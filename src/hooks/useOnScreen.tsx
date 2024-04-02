@@ -5,7 +5,7 @@ const useOnScreen = ({
   rootMargin = '0px',
   threshold = 0
 } = {}) => {
-  const [observer, setObserver] = useState();
+  const [observer, setObserver] = useState<IntersectionObserver>();
   const [isIntersecting, setIntersecting] = useState(false);
 
   const measureRef = useCallback(

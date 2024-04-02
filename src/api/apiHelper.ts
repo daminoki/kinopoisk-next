@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+type TMethod = 'get' | 'post' | 'put' | 'delete';
+
 axios.interceptors.request.use(
   config => {
     // eslint-disable-next-line
@@ -12,11 +14,11 @@ axios.interceptors.request.use(
   }
 );
 
-export const apiHelper = async (method, url, body) => {
+export const apiHelper = async (method: TMethod, url: string, ...args: any[]) => {
   const baseUrl = 'https://api.kinopoisk.dev';
 
   try {
-    const {data} = await axios[method](`${baseUrl}/${url}`, body);
+    const { data } = await axios[method](`${baseUrl}/${url}`, ...args);
 
     return data;
   } catch (err) {

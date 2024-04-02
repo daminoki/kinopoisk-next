@@ -17,7 +17,7 @@ export const PopularTvShow = ({ show }) => {
   }, [startYear, endYear]);
 
   return (
-    <Link href={'/'} className={styles['popular-show']}>
+    <Link href={`/film/${show.id}`} className={styles['popular-show']}>
       <div className={styles['popular-show__img']}>
         <Image src={show.poster.url} alt={show.name} width={150} height={225} />
       </div>

@@ -4,10 +4,10 @@ import styles from './SearchItem.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export const SearchItem = ({title, imgSrc, year, rating}) => {
+export const SearchItem = ({title, imgSrc, year, rating, id, setIsDropdownOpened}) => {
   return (
     <li className={styles['search-item']}>
-      <Link href={'/'} className={styles['search-item__link']}>
+      <Link href={`/film/${id}`} className={styles['search-item__link']} onClick={() => setIsDropdownOpened(false)}>
         <div className={styles['search-item__img']}>
           {imgSrc && <Image src={imgSrc} alt={title} width={32} height={48} />}
           {!imgSrc && <Image src={'/images/no-image.svg'} alt={title} width={32} height={48} />}

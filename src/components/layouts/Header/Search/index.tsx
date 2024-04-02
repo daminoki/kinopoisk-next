@@ -22,11 +22,12 @@ export const Search = () => {
   const ref = useRef();
   const router = useRouter();
 
-  const handleInputChange = (value) => {
+  const handleInputChange = (value: string) => {
     setSearchValue(value);
   };
 
   useEffect(() => {
+    // @ts-ignore
     ref.current = handleInputChange;
   }, [handleInputChange]);
 
@@ -38,6 +39,7 @@ export const Search = () => {
 
   const optimizesHandleInputChange = useMemo(() => {
     const callback = (value) => {
+      // @ts-ignore
       ref.current(value);
       setSearchParams({
         ...searchParams,
@@ -97,8 +99,8 @@ export const Search = () => {
       <form onSubmit={(e) => handleSearch(e)}>
         <input value={searchValue} className={isSearchActive? `${styles.search__input} ${styles['search__input_active']}` : `${styles.search__input}`} type={'search'} placeholder={'Найти'}
           onInput={(e) => {
-            handleInputChange(e.target.value);
-            optimizesHandleInputChange(e.target.value);
+            handleInputChange((e.target as HTMLInputElement).value);
+            optimizesHandleInputChange((e.target as HTMLInputElement).value);
           }}
           onFocus={() => setIsDropdownOpened(!isDropdownOpened)}
         />
@@ -135,6 +137,8 @@ export const Search = () => {
                   imgSrc={result.poster.previewUrl}
                   year={result.year}
                   rating={result.rating.kp}
+                  id={result.id}
+                  setIsDropdownOpened={setIsDropdownOpened}
                 />
               ))}
             </ul>
