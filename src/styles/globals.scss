@@ -10,7 +10,7 @@ body {
 
 .page {
     @include pad {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 
     flex: 1;
@@ -19,12 +19,8 @@ body {
     width: 100%;
     background-color: var(--typo-light);
     display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 20px;
-}
-
-.page-content {
-    overflow: hidden;
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: 30px;
 }
 
 .container {

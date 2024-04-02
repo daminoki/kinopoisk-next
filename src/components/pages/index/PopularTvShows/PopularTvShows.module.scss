@@ -6,7 +6,26 @@
     padding-bottom: 20px;
   }
 
+  &__slider {
+    position: relative;
+  }
+
   &__slide {
-    width: 150px;
+    width: 148px;
+  }
+
+  &__controls {
+    @include pad {
+      display: none;
+    }
+
+    position: absolute;
+    top: 95px;
+    left: -20px;
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% + 40px);
+    pointer-events: none;
+    z-index: 1;
   }
 }

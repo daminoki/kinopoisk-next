@@ -6,8 +6,10 @@ import 'swiper/css';
 import { useState, useEffect } from 'react';
 import { getPopularTvShows } from '@/api';
 import { Swiper, SwiperSlide} from 'swiper/react';
+import { Navigation } from 'swiper/modules';
 import { PopularTvShow } from '@/components/pages/index/PopularTvShows/PopularTvShow';
 import Loader from '@/components/ui/Loader';
+import SliderButton from '@/components/ui/SliderButton';
 
 export const PopularTvShows = () => {
   const [tvShows, setTvShows] = useState([]);
@@ -45,16 +47,30 @@ export const PopularTvShows = () => {
       {!isLoading && !tvShows.length && <div>Упс! Ничего не найдено</div>}
 
       {!isLoading && tvShows.length && (
-        <Swiper
-          spaceBetween={20}
-          slidesPerView={'auto'}
-        >
-          {tvShows.map((show) => (
-            <SwiperSlide key={show.id} className={styles.popular__slide}>
-              <PopularTvShow show={show} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        <div className={styles.popular__slider}>
+          <Swiper
+            spaceBetween={20}
+            slidesPerView={'auto'}
+            modules={[Navigation]}
+            navigation={
+              {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev'
+              }
+            }
+          >
+            {tvShows.map((show) => (
+              <SwiperSlide key={show.id} className={styles.popular__slide}>
+                <PopularTvShow show={show}/>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          <div className={styles.popular__controls}>
+            <SliderButton direction={'prev'} className={'swiper-button-prev'}/>
+            <SliderButton direction={'next'} className={'swiper-button-next'}/>
+          </div>
+        </div>
       )}
     </div>
   );
