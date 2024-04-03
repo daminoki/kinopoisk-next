@@ -21,7 +21,7 @@ export default function Search() {
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSearchActive, setIsSearchActive] = useState(false);
-  const ref = useRef();
+  const ref = useRef<any>();
   const router = useRouter();
 
   const handleInputChange = (value: string) => {
@@ -29,7 +29,6 @@ export default function Search() {
   };
 
   useEffect(() => {
-    // @ts-ignore
     ref.current = handleInputChange;
   }, [handleInputChange]);
 
@@ -41,7 +40,6 @@ export default function Search() {
 
   const optimizesHandleInputChange = useMemo(() => {
     const callback = (value) => {
-      // @ts-ignore
       ref.current(value);
       setSearchParams({
         ...searchParams,
@@ -105,8 +103,8 @@ export default function Search() {
           type="search"
           placeholder="Найти"
           onInput={(e) => {
-            handleInputChange((e.target as HTMLInputElement).value);
-            optimizesHandleInputChange((e.target as HTMLInputElement).value);
+            handleInputChange(e.currentTarget.value);
+            optimizesHandleInputChange(e.currentTarget.value);
           }}
           onFocus={() => setIsDropdownOpened(!isDropdownOpened)}
         />
@@ -140,11 +138,7 @@ export default function Search() {
                 {searchResult.map((result) => (
                   <SearchItem
                     key={result.id}
-                    title={result.name}
-                    imgSrc={result.poster.previewUrl}
-                    year={result.year}
-                    rating={result.rating.kp}
-                    id={result.id}
+                    show={result}
                     setIsDropdownOpened={setIsDropdownOpened}
                   />
                 ))}

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useMemo } from 'react';
+import getImg from '@/utils/getImg';
 import styles from './PopularTvShow.module.scss';
 
 export default function PopularTvShow({ show }) {
@@ -18,7 +19,7 @@ export default function PopularTvShow({ show }) {
   return (
     <Link href={`/film/${show.id}`} className={styles['popular-show']}>
       <div className={styles['popular-show__img']}>
-        <Image src={show.poster.url} alt={show.name} width={150} height={225} />
+        <Image src={getImg(show.poster.url)} alt={show.name} width={150} height={225} />
       </div>
       <div className={styles['popular-show__info']}>
         <p className={styles['popular-show__title']}>{show.name}</p>

@@ -1,44 +1,46 @@
-import { useEffect } from 'react';
 import SearchItem from '@/components/pages/search/SearchItem';
 import Loader from '@/components/ui/Loader';
-import useOnScreen from '@/hooks/useOnScreen';
+import InfiniteScroll from '@/components/ui/InfiniteScroll';
 import styles from './SearchList.module.scss';
+
+interface SearchListProps {
+  searchResult: {
+    id: number;
+    name: string;
+    alternativeName: string;
+    year: number;
+    description: string;
+    genres: { name: string }[];
+    movieLength: number;
+    poster: {
+      previewUrl: string;
+    };
+    top250: boolean;
+  }[];
+  isLoading: boolean;
+  hasMore: boolean;
+  loadMore: () => void;
+}
 
 export default function SearchList({
   searchResult, isLoading, hasMore, loadMore,
-}) {
-  const { measureRef, isIntersecting, observer } = useOnScreen();
-
-  useEffect(() => {
-    if (isIntersecting && hasMore) {
-      loadMore();
-    }
-  }, [isIntersecting, hasMore, loadMore, observer]);
-
+}: SearchListProps) {
   return (
     <>
       <ul className={styles['search-list']}>
-        {searchResult.map((item, id) => (
-          <SearchItem
-            key={item.id}
-            title={item.name}
-            imgSrc={item.poster.previewUrl}
-            year={item.year}
-            count={id + 1}
-            altName={item.alternativeName}
-            genre={item.genres[0]?.name}
-            duration={item.movieLength}
-            description={item.description}
-            top250={item.top250}
-            id={item.id}
-          />
+        {searchResult.map((item, index) => (
+          <li className={styles['search-list__item']} key={index}>
+            <SearchItem
+              film={item}
+              index={index}
+            />
+          </li>
         ))}
-
-        {isLoading && <Loader />}
       </ul>
 
-      <div ref={measureRef} />
-    </>
+      {isLoading && <Loader />}
 
+      {!isLoading && <InfiniteScroll hasMore={hasMore} loadMore={loadMore} />}
+    </>
   );
 }

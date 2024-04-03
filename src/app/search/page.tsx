@@ -78,6 +78,7 @@ export default function Search() {
         <>
           <p className={styles.search__total}>
             Всего найдено:
+            {' '}
             {searchResultTotal}
           </p>
 

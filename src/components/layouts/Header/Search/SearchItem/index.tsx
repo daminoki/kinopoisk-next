@@ -1,27 +1,38 @@
-'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
+import getImg from '@/utils/getImg';
 import styles from './SearchItem.module.scss';
 
-export default function SearchItem({
-  title, imgSrc, year, rating, id, setIsDropdownOpened,
-}) {
+interface SearchItemProps {
+  show: {
+    id: number;
+    name: string;
+    poster: {
+      previewUrl: string;
+    };
+    rating: {
+      kp: number;
+    };
+    year: number;
+  };
+  setIsDropdownOpened: (value: boolean) => void;
+}
+
+export default function SearchItem({ show, setIsDropdownOpened }: SearchItemProps) {
   return (
     <li className={styles['search-item']}>
-      <Link href={`/film/${id}`} className={styles['search-item__link']} onClick={() => setIsDropdownOpened(false)}>
+      <Link href={`/film/${show.id}`} className={styles['search-item__link']} onClick={() => setIsDropdownOpened(false)}>
         <div className={styles['search-item__img']}>
-          {imgSrc && <Image src={imgSrc} alt={title} width={32} height={48} />}
-          {!imgSrc && <Image src="/images/no-image.svg" alt={title} width={32} height={48} />}
+          <Image src={getImg(show.poster.previewUrl)} alt={show.name} width={32} height={48} />
         </div>
         <div className={styles['search-item__info']}>
-          <p className={styles['search-item__title']}>{title}</p>
+          <p className={styles['search-item__title']}>{show.name}</p>
           <div className={styles['search-item__bottom']}>
             <p className={styles['search-item__rating']}>
-              {rating === 0 ? '-' : rating}
+              {show.rating.kp === 0 ? '-' : show.rating.kp}
               ,
             </p>
-            <p className={styles['search-item__release-year']}>{year}</p>
+            <p className={styles['search-item__release-year']}>{show.year}</p>
           </div>
         </div>
       </Link>
