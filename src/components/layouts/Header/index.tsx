@@ -1,15 +1,15 @@
 'use client';
 
 import Link from 'next/link';
+import Search from '@/components/layouts/Header/Search';
 import Logo from '../../../../public/images/header-logo.svg';
 import styles from './Header.module.scss';
-import { Search } from '@/components/layouts/Header/Search';
 
-export const Header = () => {
+export default function Header() {
   return (
     <header className={styles.header}>
       <div className={`${styles.header__container} container`}>
-        <Link href={'/'} className={styles.header__logo}>
+        <Link href="/" className={styles.header__logo}>
           <Logo className={styles.header__logo} />
         </Link>
 
@@ -23,4 +23,4 @@ export const Header = () => {
       </div>
     </header>
   );
-};
+}
