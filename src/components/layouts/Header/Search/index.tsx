@@ -3,7 +3,7 @@ import {
   useState, useEffect, useMemo, useRef,
 } from 'react';
 import SearchItem from '@/components/layouts/Header/Search/SearchItem';
-import { getSearchResult } from '@/api';
+import api from '@/api';
 import { useRouter } from 'next/navigation';
 import Loader from '@/components/ui/Loader';
 import CloseIcon from '../../../../../public/icons/close.svg';
@@ -34,7 +34,7 @@ export default function Search() {
   }, [handleInputChange]);
 
   const fetchSearchResult = async () => {
-    const result = await getSearchResult(searchParams);
+    const result = await api.movie.getSearchResult(searchParams);
 
     setSearchResult(result.docs);
   };

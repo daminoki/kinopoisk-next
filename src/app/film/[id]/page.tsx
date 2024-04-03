@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { IFilm } from '@/entities/films';
-import { getFilm } from '@/api';
+import api from '@/api';
 
 export default function FilmPage({ params }: { params: { id: string } }) {
   const [film, setFilm] = useState<IFilm>();
 
   const fetchFilm = async () => {
-    const data = await getFilm(params.id);
+    const data = await api.movie.getFilm(params.id);
     setFilm(data);
 
     console.log(film);

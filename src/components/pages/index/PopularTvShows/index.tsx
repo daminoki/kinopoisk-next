@@ -2,7 +2,7 @@
 
 import 'swiper/css';
 import { useState, useEffect } from 'react';
-import { getPopularTvShows } from '@/api';
+import api from '@/api';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import PopularTvShow from '@/components/pages/index/PopularTvShows/PopularTvShow';
@@ -15,8 +15,8 @@ export default function PopularTvShows() {
   const [isLoading, setIsLoading] = useState(true);
 
   const searchParams = {
-    page: '1',
-    limit: '15',
+    page: 1,
+    limit: 15,
     type: 'tv-series',
     top250: '!null',
     sortField: 'rating.kp',
@@ -24,7 +24,7 @@ export default function PopularTvShows() {
   };
 
   const fetchShows = async () => {
-    const { docs } = await getPopularTvShows(searchParams);
+    const { docs } = await api.movie.getPopularTvShows(searchParams);
 
     setTvShows(docs);
     setIsLoading(false);

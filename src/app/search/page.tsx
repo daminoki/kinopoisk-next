@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState, useCallback } from 'react';
-import { getSearchResult } from '@/api';
+import api from '@/api';
 import SearchList from '@/components/pages/search/SearchList';
 import Loader from '@/components/ui/Loader';
 import styles from './page.module.scss';
@@ -25,7 +25,7 @@ export default function Search() {
       return;
     }
 
-    const { docs, total, pages } = await getSearchResult(searchParams);
+    const { docs, total, pages } = await api.movie.getSearchResult(searchParams);
 
     setSearchResult((prevSearchResult) => {
       if (searchParams.page > 1) {
