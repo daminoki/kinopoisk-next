@@ -1,9 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import styles from './page.module.scss';
-import {IFilm} from '@/entities/films';
-import {getFilm} from '@/api';
+import { IFilm } from '@/entities/films';
+import { getFilm } from '@/api';
 
 export default function FilmPage({ params }: { params: { id: string } }) {
   const [film, setFilm] = useState<IFilm>();
@@ -11,6 +10,8 @@ export default function FilmPage({ params }: { params: { id: string } }) {
   const fetchFilm = async () => {
     const data = await getFilm(params.id);
     setFilm(data);
+
+    console.log(film);
   };
 
   useEffect(() => {
@@ -22,6 +23,6 @@ export default function FilmPage({ params }: { params: { id: string } }) {
   }, [params.id]);
 
   return (
-    <div></div>
+    <div />
   );
 }

@@ -1,17 +1,16 @@
 'use client';
 
-import styles from './PopularTvShows.module.scss';
 import 'swiper/css';
-
 import { useState, useEffect } from 'react';
 import { getPopularTvShows } from '@/api';
-import { Swiper, SwiperSlide} from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
-import { PopularTvShow } from '@/components/pages/index/PopularTvShows/PopularTvShow';
+import PopularTvShow from '@/components/pages/index/PopularTvShows/PopularTvShow';
 import Loader from '@/components/ui/Loader';
 import SliderButton from '@/components/ui/SliderButton';
+import styles from './PopularTvShows.module.scss';
 
-export const PopularTvShows = () => {
+export default function PopularTvShows() {
   const [tvShows, setTvShows] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -50,28 +49,28 @@ export const PopularTvShows = () => {
         <div className={styles.popular__slider}>
           <Swiper
             spaceBetween={20}
-            slidesPerView={'auto'}
+            slidesPerView="auto"
             modules={[Navigation]}
             navigation={
               {
                 nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev'
+                prevEl: '.swiper-button-prev',
               }
             }
           >
             {tvShows.map((show) => (
               <SwiperSlide key={show.id} className={styles.popular__slide}>
-                <PopularTvShow show={show}/>
+                <PopularTvShow show={show} />
               </SwiperSlide>
             ))}
           </Swiper>
 
           <div className={styles.popular__controls}>
-            <SliderButton direction={'prev'} className={'swiper-button-prev'}/>
-            <SliderButton direction={'next'} className={'swiper-button-next'}/>
+            <SliderButton direction="prev" className="swiper-button-prev" />
+            <SliderButton direction="next" className="swiper-button-next" />
           </div>
         </div>
       )}
     </div>
   );
-};
+}

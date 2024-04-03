@@ -1,19 +1,21 @@
-import styles from './Search.module.scss';
-import SearchIcon from '../../../../../public/icons/search.svg';
-import CloseIcon from '../../../../../public/icons/close.svg';
-import { debounce } from '@/utils/debounce';
-import { useState, useEffect, useMemo, useRef } from 'react';
-import { SearchItem } from '@/components/layouts/Header/Search/SearchItem';
+import debounce from '@/utils/debounce';
+import {
+  useState, useEffect, useMemo, useRef,
+} from 'react';
+import SearchItem from '@/components/layouts/Header/Search/SearchItem';
 import { getSearchResult } from '@/api';
 import { useRouter } from 'next/navigation';
 import Loader from '@/components/ui/Loader';
+import CloseIcon from '../../../../../public/icons/close.svg';
+import SearchIcon from '../../../../../public/icons/search.svg';
+import styles from './Search.module.scss';
 
-export const Search = () => {
+export default function Search() {
   const [searchResult, setSearchResult] = useState([]);
   const [searchParams, setSearchParams] = useState({
     page: 1,
     limit: 5,
-    query: ''
+    query: '',
   });
   const [searchValue, setSearchValue] = useState('');
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
@@ -43,7 +45,7 @@ export const Search = () => {
       ref.current(value);
       setSearchParams({
         ...searchParams,
-        query: value
+        query: value,
       });
     };
 
@@ -97,7 +99,11 @@ export const Search = () => {
   return (
     <div className={styles.search}>
       <form onSubmit={(e) => handleSearch(e)}>
-        <input value={searchValue} className={isSearchActive? `${styles.search__input} ${styles['search__input_active']}` : `${styles.search__input}`} type={'search'} placeholder={'Найти'}
+        <input
+          value={searchValue}
+          className={isSearchActive ? `${styles.search__input} ${styles.search__input_active}` : `${styles.search__input}`}
+          type="search"
+          placeholder="Найти"
           onInput={(e) => {
             handleInputChange((e.target as HTMLInputElement).value);
             optimizesHandleInputChange((e.target as HTMLInputElement).value);
@@ -106,52 +112,54 @@ export const Search = () => {
         />
       </form>
 
-      <button type={'button'} className={styles.search__submit} onClick={(e) => handleSearch(e)}>
-        <SearchIcon/>
+      <button type="button" className={styles.search__submit} onClick={(e) => handleSearch(e)} aria-label="Поиск">
+        <SearchIcon />
       </button>
 
-      <button type={'button'} className={styles['search__submit-mob']} onClick={handleSearchButtonClick}>
-        <SearchIcon/>
+      <button type="button" className={styles['search__submit-mob']} onClick={handleSearchButtonClick} aria-label="Мобильный поиск">
+        <SearchIcon />
       </button>
 
-      <button type={'button'} className={isSearchActive? `${styles.search__close} ${styles['search__close_active']}` : `${styles.search__close}`} onClick={handleCloseClick}>
-        <CloseIcon/>
+      <button type="button" className={isSearchActive ? `${styles.search__close} ${styles.search__close_active}` : `${styles.search__close}`} onClick={handleCloseClick} aria-label="Закрыть поиск">
+        <CloseIcon />
       </button>
 
-      {isDropdownOpened && (<div className={styles.search__result}>
-        {isLoading && <Loader/>}
+      {isDropdownOpened && (
+        <div className={styles.search__result}>
+          {isLoading && <Loader />}
 
-        {!isLoading && searchResult.length === 0 && (
-          <p className={styles['search__empty']}>
-            По вашему запросу ничего не найдено
-          </p>
-        )}
+          {!isLoading && searchResult.length === 0 && (
+            <p className={styles.search__empty}>
+              По вашему запросу ничего не найдено
+            </p>
+          )}
 
-        {!isLoading && searchResult.length > 0 && (
-          <>
-            <ul className={styles.search__list}>
-              {searchResult.map((result) => (
-                <SearchItem
-                  key={result.id}
-                  title={result.name}
-                  imgSrc={result.poster.previewUrl}
-                  year={result.year}
-                  rating={result.rating.kp}
-                  id={result.id}
-                  setIsDropdownOpened={setIsDropdownOpened}
-                />
-              ))}
-            </ul>
+          {!isLoading && searchResult.length > 0 && (
+            <>
+              <ul className={styles.search__list}>
+                {searchResult.map((result) => (
+                  <SearchItem
+                    key={result.id}
+                    title={result.name}
+                    imgSrc={result.poster.previewUrl}
+                    year={result.year}
+                    rating={result.rating.kp}
+                    id={result.id}
+                    setIsDropdownOpened={setIsDropdownOpened}
+                  />
+                ))}
+              </ul>
 
-            {searchParams.query &&
-              <button className={styles['search__view-all']} onClick={(e) => handleSearch(e)}>
-                Показать все
-              </button>
-            }
-          </>
-        )}
-      </div>)
-      }
+              {searchParams.query
+              && (
+                <button type="button" className={styles['search__view-all']} onClick={(e) => handleSearch(e)}>
+                  Показать все
+                </button>
+              )}
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
-};
+}

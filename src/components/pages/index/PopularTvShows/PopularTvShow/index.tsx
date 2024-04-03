@@ -1,10 +1,9 @@
-import styles from './PopularTvShow.module.scss';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useMemo } from 'react';
+import styles from './PopularTvShow.module.scss';
 
-export const PopularTvShow = ({ show }) => {
+export default function PopularTvShow({ show }) {
   const [startYear] = useState(show.releaseYears[0].start);
   const [endYear] = useState(show.releaseYears[0].end);
 
@@ -23,8 +22,12 @@ export const PopularTvShow = ({ show }) => {
       </div>
       <div className={styles['popular-show__info']}>
         <p className={styles['popular-show__title']}>{show.name}</p>
-        <p className={styles['popular-show__row']}>{getReleaseYears}, {show.genres[0].name}</p>
+        <p className={styles['popular-show__row']}>
+          {getReleaseYears}
+          ,
+          {show.genres[0].name}
+        </p>
       </div>
     </Link>
   );
-};
+}

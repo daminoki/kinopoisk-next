@@ -1,4 +1,4 @@
-export function debounce(func, timeout = 300){
+export default function debounce(func, timeout = 300) {
   let timer;
 
   return (...args) => {
@@ -8,4 +8,3 @@ export function debounce(func, timeout = 300){
     }, timeout);
   };
 }
-  
