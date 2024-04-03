@@ -1,11 +1,9 @@
 import styles from './Loader.module.scss';
 
-function Loader() {
+export default function Loader() {
   return (
     <div className={styles['loader-body']}>
-      <div className={styles['loader-circle']}></div>
+      <div className={styles['loader-circle']} />
     </div>
   );
 }
-
-export default Loader;

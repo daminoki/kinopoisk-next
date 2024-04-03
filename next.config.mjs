@@ -5,7 +5,13 @@ const nextConfig = {
     },
     output: 'standalone',
     images: {
-        domains: ['image.openmoviedb.com'],
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'image.openmoviedb.com',
+                port: ''
+            }
+        ]
     },
     webpack(config) {
         config.module.rules.push({

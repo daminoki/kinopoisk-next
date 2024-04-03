@@ -1,11 +1,11 @@
 'use client';
 
-import styles from './page.module.scss';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState, useCallback } from 'react';
-import { getSearchResult } from '@/api';
-import { SearchList }from '@/components/pages/search/SearchList';
+import api from '@/api';
+import SearchList from '@/components/pages/search/SearchList';
 import Loader from '@/components/ui/Loader';
+import styles from './page.module.scss';
 
 export default function Search() {
   const queryParams = useSearchParams();
@@ -13,7 +13,7 @@ export default function Search() {
   const [searchParams, setSearchParams] = useState({
     page: 1,
     limit: 10,
-    query: ''
+    query: '',
   });
   const [isLoading, setIsLoading] = useState(true);
   const [searchResultTotal, setSearchResultTotal] = useState(null);
@@ -25,14 +25,13 @@ export default function Search() {
       return;
     }
 
-    const { docs, total, pages } = await getSearchResult(searchParams);
+    const { docs, total, pages } = await api.movie.getSearchResult(searchParams);
 
-    setSearchResult(prevSearchResult => {
+    setSearchResult((prevSearchResult) => {
       if (searchParams.page > 1) {
         return [...prevSearchResult, ...docs];
-      } else {
-        return docs;
       }
+      return docs;
     });
 
     setSearchResultTotal(total);
@@ -41,7 +40,11 @@ export default function Search() {
   };
 
   const loadMore = useCallback(() => {
-    setSearchParams( prevSearchParams => ({...prevSearchParams, page: prevSearchParams.page + 1}));
+    setSearchParams((prevSearchParams) => ({
+      ...prevSearchParams,
+      page: prevSearchParams.page + 1,
+    }));
+
     setIsMoreLoading(true);
   }, []);
 
@@ -49,7 +52,7 @@ export default function Search() {
     setSearchParams({
       ...searchParams,
       query: queryParams.get('query'),
-      page: 1
+      page: 1,
     });
   }, [queryParams]);
 
@@ -73,9 +76,18 @@ export default function Search() {
 
       {!isLoading && searchResult.length > 0 && (
         <>
-          <p className={styles.search__total}>Всего найдено: {searchResultTotal}</p>
+          <p className={styles.search__total}>
+            Всего найдено:
+            {' '}
+            {searchResultTotal}
+          </p>
 
-          <SearchList searchResult={searchResult} isLoading={isMoreLoading} hasMore={hasMore} loadMore={loadMore} />
+          <SearchList
+            searchResult={searchResult}
+            isLoading={isMoreLoading}
+            hasMore={hasMore}
+            loadMore={loadMore}
+          />
         </>
       )}
     </div>

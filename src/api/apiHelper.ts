@@ -1,26 +1,26 @@
 import axios from 'axios';
 
+type TMethod = 'get' | 'post' | 'put' | 'delete';
+
 axios.interceptors.request.use(
-  config => {
+  (config) => {
     // eslint-disable-next-line
     config.headers['x-api-key'] = process.env.NEXT_PUBLIC_KINOSEARCH_API_KEY;
 
     return config;
   },
-  error => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error),
 );
 
-export const apiHelper = async (method, url, body) => {
+export default async function apiHelper(method: TMethod, url: string, ...args: any[]) {
   const baseUrl = 'https://api.kinopoisk.dev';
 
   try {
-    const {data} = await axios[method](`${baseUrl}/${url}`, body);
+    const { data } = await axios[method](`${baseUrl}/${url}`, ...args);
 
     return data;
   } catch (err) {
     alert(err);
     return null;
   }
-};
+}
