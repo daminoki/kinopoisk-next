@@ -1,0 +1,90 @@
+.film-info {
+  &__title {
+    @include h2;
+
+    color: var(--typo-dark);
+  }
+
+  &__alt-title {
+    @include h5;
+
+    color: var(--typo-gray-secondary);
+    padding-top: 5px;
+  }
+
+  &__description {
+    @include txt16;
+
+    color: var(--typo-dark);
+    padding-top: 10px;
+  }
+
+  &__subtitle {
+    @include h4;
+
+    color: var(--typo-dark);
+    padding-top: 40px;
+  }
+
+  &__about {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 10px;
+  }
+
+  &__about-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    column-gap: 20px;
+  }
+
+  &__about-title {
+    @include txt13;
+
+    color: var(--typo-gray-secondary);
+  }
+
+  &__about-text {
+    @include txt13;
+
+    color: var(--typo-dark);
+
+    a {
+      color: var(--typo-dark);
+      transition: color .3s ease-in-out;
+
+      @media (hover: hover) and (pointer: fine){
+        &:hover {
+          color: var(--typo-contrast);
+        }
+      }
+    }
+  }
+
+  &__title-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    align-items: start;
+  }
+
+  &__rating {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-top: 10px;
+  }
+
+  &__rating-value {
+    @include txt20;
+
+    font-weight: 700;
+    color: var(--typo-contrast);
+  }
+
+  &__rating-name {
+    @include txt13;
+
+    color: var(--typo-gray-secondary);
+  }
+}
