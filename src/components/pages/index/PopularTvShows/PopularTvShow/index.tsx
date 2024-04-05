@@ -25,7 +25,7 @@ export default function PopularTvShow({ show }) {
         <p className={styles['popular-show__title']}>{show.name}</p>
         <p className={styles['popular-show__row']}>
           {getReleaseYears}
-          ,
+          {', '}
           {show.genres[0].name}
         </p>
       </div>
