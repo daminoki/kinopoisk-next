@@ -80,6 +80,14 @@
 
     font-weight: 700;
     color: var(--typo-contrast);
+
+    &_low {
+      color: var(--typo-red);
+    }
+
+    &_high {
+      color: var(--typo-green);
+    }
   }
 
   &__rating-name {

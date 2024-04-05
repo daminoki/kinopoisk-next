@@ -2,6 +2,7 @@ import { IFilm } from '@/entities/films';
 import getImg from '@/utils/getImg';
 import Image from 'next/image';
 import Link from 'next/link';
+import FilmFacts from '@/components/pages/film/FilmFacts';
 import styles from './FilmMore.module.scss';
 
 interface FilmMoreProps {
@@ -33,7 +34,7 @@ export default function FilmMore({ film }: FilmMoreProps) {
                         width={150}
                         height={225}
                       />
-                      {similarFilm.rating.kp && (
+                      {similarFilm.rating?.kp && (
                         <div className={styles['film-more__similar-rating']}>
                           {similarFilm.rating.kp.toFixed(1)}
                         </div>
@@ -42,14 +43,14 @@ export default function FilmMore({ film }: FilmMoreProps) {
 
                     <p className={styles['film-more__similar-name']}>{similarFilm.name}</p>
                     <p className={styles['film-more__similar-info']}>
-                      {similarFilm.year}
                       {similarFilm.alternativeName && (
-                        <>
-                          {', '}
-                          <span>
-                            {similarFilm.alternativeName}
-                          </span>
-                        </>
+                        <span>{similarFilm.alternativeName}</span>
+                      )}
+
+                      {similarFilm.year && similarFilm.alternativeName && ', '}
+
+                      {similarFilm.year && (
+                        <span>{similarFilm.year}</span>
                       )}
                     </p>
                   </Link>
@@ -59,6 +60,9 @@ export default function FilmMore({ film }: FilmMoreProps) {
         </div>
       )}
 
+      {film.facts?.length > 0 && (
+        <FilmFacts film={film} />
+      )}
     </div>
   );
 }

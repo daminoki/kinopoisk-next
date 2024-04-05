@@ -9,6 +9,8 @@
     "indent": ["error", 2],
     "no-multi-spaces": ["error"],
     "react/prop-types": ["off"],
-    "react/react-in-jsx-scope": ["off"]
+    "react/react-in-jsx-scope": ["off"],
+    "react/require-default-props": ["off"],
+    "react/button-has-type": ["off"]
   }
 }

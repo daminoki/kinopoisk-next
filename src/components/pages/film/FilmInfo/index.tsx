@@ -25,19 +25,30 @@ export default function FilmInfo({ film }: IFilmInfoProps) {
     return format(date, 'd MMMM yyyy', { locale: ru });
   };
 
+  function getRatingClasses(rating) {
+    if (rating > 7) {
+      return `${styles['film-info__rating-value_high']} ${styles['film-info__rating-value']}`;
+    } if (rating < 5) {
+      return `${styles['film-info__rating-value_low']} ${styles['film-info__rating-value']}`;
+    }
+    return styles['film-info__rating-value'];
+  }
+
   return (
     <>
-      {film.name && film.rating.kp && (
+      {film.name && film.rating.kp !== 0 && (
         <div className={styles['film-info__title-wrapper']}>
           <h1 className={styles['film-info__title']}>{film.name}</h1>
           <div className={styles['film-info__rating']}>
-            <span className={styles['film-info__rating-value']}>{film.rating.kp}</span>
+            <span className={getRatingClasses(Number(film.rating.kp.toFixed(1)))}>
+              {film.rating.kp.toFixed(1)}
+            </span>
             <span className={styles['film-info__rating-name']}>рейтинг КиноПоиска</span>
           </div>
         </div>
       )}
 
-      {film.name && !film.rating.kp && (
+      {film.name && film.rating.kp === 0 && (
         <h1 className={styles['film-info__title']}>{film.name}</h1>
       )}
 
@@ -125,7 +136,7 @@ export default function FilmInfo({ film }: IFilmInfoProps) {
                       .map((person, ind) => (
                         <React.Fragment key={person.id}>
                           {ind > 0 && ', '}
-                          <Link href={`/person/${person.id}`}>
+                          <Link href={`/name/${person.id}`}>
                             {person.name || person.enName}
                           </Link>
                         </React.Fragment>
