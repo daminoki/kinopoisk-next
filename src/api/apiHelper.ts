@@ -20,7 +20,7 @@ export default async function apiHelper(method: TMethod, url: string, ...args: a
 
     return data;
   } catch (err) {
-    alert(err);
+    console.log(err);
     return null;
   }
 }

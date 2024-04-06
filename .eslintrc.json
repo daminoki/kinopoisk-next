@@ -10,6 +10,7 @@
     "no-multi-spaces": ["error"],
     "react/prop-types": ["off"],
     "react/react-in-jsx-scope": ["off"],
-    "jsx-a11y/label-has-associated-control": ["off"]
+    "react/require-default-props": ["off"],
+    "react/button-has-type": ["off"]
   }
 }

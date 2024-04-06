@@ -1,0 +1,18 @@
+.button {
+  @include h5;
+
+  padding: 15px 20px;
+  border-radius: var(--button-br);
+  cursor: pointer;
+  margin: 0 auto;
+
+  &_primary {
+    background-color: var(--typo-contrast);
+    color: var(--typo-light);
+    transition: background-color .3s ease-in-out;
+
+    &:hover {
+      background-color: var(--typo-dark);
+    }
+  }
+}

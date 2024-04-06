@@ -7,7 +7,7 @@ interface IFilmRating {
   tmdb: number | null;
 }
 
-interface IFilmImage {
+export interface IFilmImage {
   url: string | null;
   previewUrl: string | null;
 }
@@ -33,7 +33,7 @@ interface IFilmReviewInfo {
   percentage: string | null;
 }
 
-interface IFilmSeasonInfo {
+export interface IFilmSeasonInfo {
   number: number | null;
   episodesCount: number | null;
 }
@@ -95,7 +95,7 @@ interface IFilmReleaseYears {
   end: number | null;
 }
 
-interface IFilmVideo {
+export interface IFilmVideo {
   url: string | null;
   name: string | null;
   site: string | null;

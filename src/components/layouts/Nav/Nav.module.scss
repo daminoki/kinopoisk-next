@@ -1,9 +1,5 @@
 .nav {
   @include tablet {
-    padding-top: 30px;
-  }
-
-  @include pad {
     display: none;
   }
 

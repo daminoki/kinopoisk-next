@@ -1,0 +1,93 @@
+.film-more {
+  @include pad {
+    padding-top: 0;
+  }
+
+  padding-top: 20px;
+
+  &__text {
+    @include txt16;
+
+    color: var(--typo-dark);
+    padding-top: 10px;
+  }
+
+  &__title {
+    @include h4;
+
+    @include tablet {
+      padding-top: 30px;
+    }
+
+    color: var(--typo-dark);
+    padding-top: 40px;
+  }
+
+  &__similar-list {
+    @include pad {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    padding-top: 20px;
+  }
+
+  &__similar-img {
+    @include pad {
+      height: 350px;
+    }
+
+    height: 270px;
+    position: relative;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform .3s ease-in-out;
+    }
+  }
+
+  &__similar-rating {
+    @include h6;
+
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    color: var(--typo-light);
+    padding: 5px 10px;
+    background-color: var(--typo-contrast);
+  }
+
+  &__similar-link {
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        img {
+          transform: scale(1.05);
+        }
+
+        & .film-more__similar-name {
+          color: var(--typo-contrast);
+        }
+      }
+    }
+  }
+
+  &__similar-name {
+    @include h5;
+
+    color: var(--typo-dark);
+    transition: color .3s ease-in-out;
+    padding-top: 5px;
+  }
+
+  &__similar-info {
+    @include txt13;
+
+    color: var(--typo-gray-secondary);
+    padding-top: 5px;
+  }
+}

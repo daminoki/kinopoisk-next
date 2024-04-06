@@ -1,0 +1,197 @@
+.film-info {
+  @include min-pad {
+    background-image: none !important;
+  }
+
+  @include pad {
+    width: calc(100% + 32px);
+    height: 450px;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 16px;
+    margin: 0 -16px;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, .5);
+    }
+  }
+
+  &__title {
+    @include h2;
+
+    @include pad {
+      color: var(--typo-light);
+      position: relative;
+      z-index: 1;
+    }
+
+    color: var(--typo-dark);
+  }
+
+  &__alt-title {
+    @include h5;
+
+    @include pad {
+      color: var(--typo-gray);
+      position: relative;
+      z-index: 1;
+    }
+
+    color: var(--typo-gray-secondary);
+    padding-top: 5px;
+  }
+
+  &__description {
+    @include txt16;
+
+    @include pad {
+      color: var(--typo-light);
+      position: relative;
+      z-index: 1;
+    }
+
+    color: var(--typo-dark);
+    padding-top: 10px;
+  }
+
+  &__subtitle {
+    @include h4;
+
+    @include tablet {
+      padding-top: 30px;
+    }
+
+    color: var(--typo-dark);
+    padding-top: 40px;
+  }
+
+  &__about {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 10px;
+  }
+
+  &__about-item {
+    @include pad {
+      grid-template-columns: 1fr;
+    }
+
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    column-gap: 20px;
+  }
+
+  &__about-title {
+    @include txt13;
+
+    color: var(--typo-gray-secondary);
+  }
+
+  &__about-text {
+    @include txt13;
+
+    color: var(--typo-dark);
+
+    a {
+      color: var(--typo-dark);
+      transition: color .3s ease-in-out;
+
+      @media (hover: hover) and (pointer: fine){
+        &:hover {
+          color: var(--typo-contrast);
+        }
+      }
+    }
+  }
+
+  &__title-wrapper {
+    @include pad {
+      grid-template-columns: 1fr;
+    }
+
+    display: grid;
+    grid-template-columns: 1fr 150px;
+    align-items: start;
+  }
+
+  &__rating {
+    @include tablet {
+      padding-top: 0;
+    }
+
+    @include pad {
+      display: none;
+    }
+
+    @include pad {
+      align-items: start;
+      flex-direction: row;
+    }
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-top: 10px;
+  }
+
+  &__rating-value {
+    @include txt20;
+
+    font-weight: 700;
+    color: var(--typo-gray-secondary);
+
+    &_low {
+      color: var(--typo-red);
+    }
+
+    &_high {
+      color: var(--typo-green);
+    }
+  }
+
+  &__rating-name {
+    @include pad {
+      display: none;
+    }
+
+    @include txt13;
+
+    color: var(--typo-gray-secondary);
+  }
+
+  &__rating-mob {
+    @include pad {
+      display: flex;
+    }
+
+    display: none;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 1;
+    padding: 5px;
+    background-color: var(--typo-gray);
+
+    & .film-info__rating-value {
+      color: var(--typo-light);
+    }
+
+    &_low {
+      background-color: var(--typo-red);
+    }
+
+    &_high {
+      background-color: var(--typo-green);
+    }
+  }
+}

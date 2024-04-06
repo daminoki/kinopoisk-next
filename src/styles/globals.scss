@@ -9,7 +9,7 @@ body {
 }
 
 .page {
-    @include pad {
+    @include tablet {
         grid-template-columns: minmax(0, 1fr);
     }
 
