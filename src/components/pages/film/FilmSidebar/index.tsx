@@ -15,8 +15,7 @@ export default function FilmSidebar({ film }: FilmSidebarProps) {
       </div>
 
       {film.videos?.trailers.length > 0
-          && film.videos.trailers[0]
-          && film.videos.trailers[0].url
+          && film.videos.trailers[0]?.url
           && (
             <div className={styles['film-sidebar__video']}>
               <iframe

@@ -1,11 +1,9 @@
 import { IFilm } from '@/entities/films';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import pluralize from 'pluralize';
 import Link from 'next/link';
-import React from 'react';
-import { format } from 'date-fns';
-import { ru } from 'date-fns/locale';
+import { Fragment } from 'react';
 import getImg from '@/utils/getImg';
+import getDeclensions from '@/utils/getDeclensions';
+import formatPremiereDate from '@/utils/formatDate';
 import styles from './FilmInfo.module.scss';
 
 interface IFilmInfoProps {
@@ -13,20 +11,15 @@ interface IFilmInfoProps {
 }
 
 export default function FilmInfo({ film }: IFilmInfoProps) {
-  const professions: string[] = Array.from(new Set(
+  const professions: string[] = [...new Set(
     film.persons.map((person) => person.profession),
-  ));
+  )];
 
   function formatNumber(number: number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
   }
 
-  const formatDate = (dateString: Date) => {
-    const date = new Date(dateString);
-    return format(date, 'd MMMM yyyy', { locale: ru });
-  };
-
-  function getRatingClasses(rating) {
+  function getRatingClasses(rating: number) {
     if (rating > 7) {
       return `${styles['film-info__rating-value_high']} ${styles['film-info__rating-value']}`;
     } if (rating < 5) {
@@ -35,13 +28,26 @@ export default function FilmInfo({ film }: IFilmInfoProps) {
     return styles['film-info__rating-value'];
   }
 
-  function getMobRatingClasses(rating) {
+  function getMobRatingClasses(rating: number) {
     if (rating > 7) {
       return `${styles['film-info__rating-mob_high']} ${styles['film-info__rating-mob']}`;
     } if (rating < 5) {
       return `${styles['film-info__rating-mob_low']} ${styles['film-info__rating-mob']}`;
     }
     return styles['film-info__rating-mob'];
+  }
+
+  function pluralize(n: number) {
+    const suffixes = {
+      zero: 'сезонов',
+      one: 'сезон',
+      two: 'сезона',
+      few: 'сезона',
+      many: 'сезонов',
+      other: 'сезонов',
+    };
+
+    return getDeclensions(n, suffixes);
   }
 
   return (
@@ -105,7 +111,7 @@ export default function FilmInfo({ film }: IFilmInfoProps) {
                     (
                     {(film.seasonsInfo.length)}
                     {' '}
-                    {pluralize('season', film.seasonsInfo.length)}
+                    {pluralize(film.seasonsInfo.length)}
                     )
                   </span>
                 </>
@@ -146,20 +152,19 @@ export default function FilmInfo({ film }: IFilmInfoProps) {
         {
           professions.length > 0 && (
             <>
-              {professions.map((profession, index) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <div key={index} className={styles['film-info__about-item']}>
+              {professions.map((profession) => (
+                <div key={profession} className={styles['film-info__about-item']}>
                   <p className={styles['film-info__about-title']}>{profession.charAt(0).toUpperCase() + profession.slice(1)}</p>
                   <p className={styles['film-info__about-text']}>
                     {film.persons
                       .filter((person) => person.profession === profession)
                       .map((person, ind) => (
-                        <React.Fragment key={person.id}>
+                        <Fragment key={person.id}>
                           {ind > 0 && ', '}
                           <Link href={`/name/${person.id}`}>
                             {person.name || person.enName}
                           </Link>
-                        </React.Fragment>
+                        </Fragment>
                       ))}
                   </p>
                 </div>
@@ -179,7 +184,7 @@ export default function FilmInfo({ film }: IFilmInfoProps) {
           </div>
         )}
 
-        {film.fees.world.value && (
+        {film.fees.world?.value && (
           <div className={styles['film-info__about-item']}>
             <p className={styles['film-info__about-title']}>Сборы в мире</p>
             <p className={styles['film-info__about-text']}>
@@ -194,11 +199,10 @@ export default function FilmInfo({ film }: IFilmInfoProps) {
           <div className={styles['film-info__about-item']}>
             <p className={styles['film-info__about-title']}>Премьера в мире</p>
             <p className={styles['film-info__about-text']}>
-              {formatDate(film.premiere.world)}
+              {formatPremiereDate(film.premiere.world)}
             </p>
           </div>
         )}
-
       </div>
     </>
   );
