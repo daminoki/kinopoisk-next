@@ -1,4 +1,8 @@
 .film-more {
+  @include pad {
+    padding-top: 0;
+  }
+
   padding-top: 20px;
 
   &__text {
@@ -11,18 +15,30 @@
   &__title {
     @include h4;
 
+    @include tablet {
+      padding-top: 30px;
+    }
+
     color: var(--typo-dark);
     padding-top: 40px;
   }
 
   &__similar-list {
+    @include pad {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 20px;
     padding-top: 20px;
   }
 
   &__similar-img {
+    @include pad {
+      height: 350px;
+    }
+
     height: 270px;
     position: relative;
     overflow: hidden;

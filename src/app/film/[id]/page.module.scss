@@ -1,4 +1,9 @@
 .film {
+  @include pad {
+    grid-template-columns: 1fr;
+    margin-top: -30px;
+  }
+
   display: grid;
   grid-template-columns: 300px 1fr;
   column-gap: 20px;

@@ -1,7 +1,7 @@
 'use client';
 
 import { IFilm } from '@/entities/films';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from '@/components/ui/Button';
 import styles from './FilmFacts.module.scss';
 
@@ -11,10 +11,15 @@ interface FilmFactsProps {
 
 export default function FilmFacts({ film }: FilmFactsProps) {
   const [factsList, setFactsList] = useState(film.facts.slice(0, 3));
+  const [factsListLength, setFactsListLength] = useState(3);
 
   const handleButtonClick = () => {
-    setFactsList(film.facts);
+    setFactsListLength((prevLength) => prevLength + 3);
   };
+
+  useEffect(() => {
+    setFactsList(film.facts.slice(0, factsListLength));
+  }, [factsListLength, film.facts]);
 
   return (
     <div className={styles['film-facts']}>

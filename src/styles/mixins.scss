@@ -16,6 +16,12 @@
     }
 }
 
+@mixin min-pad {
+    @media (min-width: 768px) {
+        @content;
+    }
+}
+
 @mixin h1 {
     @include tablet {
         font-size: 40px;

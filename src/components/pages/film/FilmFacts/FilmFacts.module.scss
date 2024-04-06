@@ -1,4 +1,8 @@
 .film-facts {
+  @include tablet {
+    padding-top: 30px;
+  }
+
   padding-top: 40px;
 
   &__title {

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import React from 'react';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
+import getImg from '@/utils/getImg';
 import styles from './FilmInfo.module.scss';
 
 interface IFilmInfoProps {
@@ -34,41 +35,60 @@ export default function FilmInfo({ film }: IFilmInfoProps) {
     return styles['film-info__rating-value'];
   }
 
+  function getMobRatingClasses(rating) {
+    if (rating > 7) {
+      return `${styles['film-info__rating-mob_high']} ${styles['film-info__rating-mob']}`;
+    } if (rating < 5) {
+      return `${styles['film-info__rating-mob_low']} ${styles['film-info__rating-mob']}`;
+    }
+    return styles['film-info__rating-mob'];
+  }
+
   return (
     <>
-      {film.name && film.rating.kp !== 0 && (
-        <div className={styles['film-info__title-wrapper']}>
+      <div className={styles['film-info']} style={{ backgroundImage: `url(${getImg(film.poster.url)})` }}>
+        {film.name && film.rating.kp !== 0 && (
+          <div className={styles['film-info__title-wrapper']}>
+            <h1 className={styles['film-info__title']}>{film.name}</h1>
+            <div className={styles['film-info__rating']}>
+              <span className={getRatingClasses(Number(film.rating.kp.toFixed(1)))}>
+                {film.rating.kp.toFixed(1)}
+              </span>
+              <span className={styles['film-info__rating-name']}>рейтинг КиноПоиска</span>
+            </div>
+          </div>
+        )}
+
+        {film.name && film.rating.kp === 0 && (
           <h1 className={styles['film-info__title']}>{film.name}</h1>
-          <div className={styles['film-info__rating']}>
-            <span className={getRatingClasses(Number(film.rating.kp.toFixed(1)))}>
+        )}
+
+        {film.alternativeName && (
+          <p className={styles['film-info__alt-title']}>
+            {film.alternativeName}
+            {' '}
+
+            {film.ageRating && (
+              <span className={styles['film-info__age-rating']}>
+                {film.ageRating}
+                +
+              </span>
+            )}
+          </p>
+        )}
+
+        {film.shortDescription && (
+          <p className={styles['film-info__description']}>{film.shortDescription}</p>
+        )}
+
+        {film.rating.kp !== 0 && (
+          <div className={getMobRatingClasses(Number(film.rating.kp.toFixed(1)))}>
+            <span className={styles['film-info__rating-value']}>
               {film.rating.kp.toFixed(1)}
             </span>
-            <span className={styles['film-info__rating-name']}>рейтинг КиноПоиска</span>
           </div>
-        </div>
-      )}
-
-      {film.name && film.rating.kp === 0 && (
-        <h1 className={styles['film-info__title']}>{film.name}</h1>
-      )}
-
-      {film.alternativeName && (
-        <p className={styles['film-info__alt-title']}>
-          {film.alternativeName}
-          {' '}
-
-          {film.ageRating && (
-            <span className={styles['film-info__age-rating']}>
-              {film.ageRating}
-              +
-            </span>
-          )}
-        </p>
-      )}
-
-      {film.shortDescription && (
-        <p className={styles['film-info__description']}>{film.shortDescription}</p>
-      )}
+        )}
+      </div>
 
       <div className={styles['film-info__subtitle']}>О фильме</div>
 
