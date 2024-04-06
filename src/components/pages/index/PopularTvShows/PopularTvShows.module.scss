@@ -7,6 +7,10 @@
   }
 
   &__slider {
+    @include pad {
+      margin-right: -16px;
+    }
+
     position: relative;
   }
 

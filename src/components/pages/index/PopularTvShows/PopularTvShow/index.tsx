@@ -13,6 +13,10 @@ export default function PopularTvShow({ show }) {
       return startYear;
     }
 
+    if (!endYear) {
+      return startYear;
+    }
+
     return `${startYear} - ${endYear}`;
   }, [startYear, endYear]);
 

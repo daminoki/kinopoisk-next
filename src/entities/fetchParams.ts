@@ -6,4 +6,7 @@ export interface IFetchParams {
   top250?: string;
   sortField?: string;
   sortType?: string;
+  'premiere.world'?: string;
+  status?: string;
+  'votes.await'?: string;
 }
