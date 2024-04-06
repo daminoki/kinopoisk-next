@@ -29,7 +29,7 @@ export default function SearchItem({ show, setIsDropdownOpened }: SearchItemProp
           <p className={styles['search-item__title']}>{show.name}</p>
           <div className={styles['search-item__bottom']}>
             <p className={styles['search-item__rating']}>
-              {show.rating.kp === 0 ? '-' : show.rating.kp}
+              {show.rating.kp === 0 ? '-' : show.rating.kp.toFixed(1)}
               ,
             </p>
             <p className={styles['search-item__release-year']}>{show.year}</p>

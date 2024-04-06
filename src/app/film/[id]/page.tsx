@@ -1,28 +1,38 @@
-'use client';
-
-import { useState, useEffect } from 'react';
 import { IFilm } from '@/entities/films';
 import api from '@/api';
+import type { Metadata } from 'next';
+import FilmSidebar from '@/components/pages/film/FilmSidebar';
+import FilmInfo from '@/components/pages/film/FilmInfo';
+import FilmMore from '@/components/pages/film/FilmMore';
+import styles from './page.module.scss';
 
-export default function FilmPage({ params }: { params: { id: string } }) {
-  const [film, setFilm] = useState<IFilm>();
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  const film: IFilm = await api.movie.getFilm(params.id);
 
-  const fetchFilm = async () => {
-    const data = await api.movie.getFilm(params.id);
-    setFilm(data);
-
-    console.log(film);
+  return {
+    title: film?.name,
+    description: film?.shortDescription,
   };
+}
 
-  useEffect(() => {
-    async function fetchData() {
-      await fetchFilm();
-    }
-
-    fetchData();
-  }, [params.id]);
+export default async function FilmPage({ params }: { params: { id: string } }) {
+  const film: IFilm = await api.movie.getFilm(params.id);
 
   return (
-    <div />
+    <>
+      <div className={styles.film}>
+        <div className={styles.film__media}>
+          <FilmSidebar film={film} />
+        </div>
+
+        <div className={styles.film__info}>
+          <FilmInfo film={film} />
+        </div>
+      </div>
+
+      <div className={styles['film-more']}>
+        <FilmMore film={film} />
+      </div>
+    </>
   );
 }
