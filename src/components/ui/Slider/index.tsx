@@ -33,7 +33,8 @@ export default function Slider({
         }
       >
         {slides.map((slide, index) => (
-          <SwiperSlide key={index} className={slideClassName}>
+          // eslint-disable-next-line react/no-array-index-key
+          <SwiperSlide key={index} className={slideClasses}>
             {children[index]}
           </SwiperSlide>
         ))}
