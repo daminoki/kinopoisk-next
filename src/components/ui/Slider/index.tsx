@@ -15,7 +15,13 @@ interface ISliderProps {
 }
 
 export default function Slider({
-  spaceBetween, slidesPerView, slides, wrapperClassName, slideClassName, controlsClassName, children,
+  spaceBetween,
+  slidesPerView,
+  slides,
+  wrapperClassName,
+  slideClassName,
+  controlsClassName,
+  children,
 }: ISliderProps) {
   const slideClasses = slideClassName ? `${styles.slide} ${slideClassName}` : styles.slide;
   const controlsClasses = controlsClassName ? `${controlsClassName}` : styles.controls;
