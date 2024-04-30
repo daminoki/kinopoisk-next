@@ -19,7 +19,7 @@ export default function FilmMore({ film }: FilmMoreProps) {
         </>
       )}
 
-      {film.similarMovies.length > 0 && (
+      {film.similarMovies?.length > 0 && (
         <div className={styles['film-more__similar']}>
           <p className={styles['film-more__title']}>Похожие фильмы</p>
           <ul className={styles['film-more__similar-list']}>
