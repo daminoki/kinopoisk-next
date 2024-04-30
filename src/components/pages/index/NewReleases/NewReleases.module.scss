@@ -1,4 +1,10 @@
-.popular {
+.new-releases {
+  @include tablet {
+    padding-top: 30px;
+  }
+
+  padding-top: 40px;
+
   &__title {
     @include h4;
 

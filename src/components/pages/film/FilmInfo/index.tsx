@@ -173,7 +173,7 @@ export default function FilmInfo({ film }: IFilmInfoProps) {
           )
         }
 
-        {film.budget.value && (
+        {film.budget?.value && (
           <div className={styles['film-info__about-item']}>
             <p className={styles['film-info__about-title']}>Бюджет</p>
             <p className={styles['film-info__about-text']}>
@@ -184,7 +184,7 @@ export default function FilmInfo({ film }: IFilmInfoProps) {
           </div>
         )}
 
-        {film.fees.world?.value && (
+        {film.fees?.world?.value && (
           <div className={styles['film-info__about-item']}>
             <p className={styles['film-info__about-title']}>Сборы в мире</p>
             <p className={styles['film-info__about-text']}>
