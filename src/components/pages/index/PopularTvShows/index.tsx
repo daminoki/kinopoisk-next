@@ -18,6 +18,7 @@ export default function PopularTvShows() {
     type: 'tv-series',
     top250: '!null',
     sortField: 'rating.kp',
+    'votes.kp': '100000 - 1000000',
     sortType: '-1',
   };
 
@@ -49,11 +50,12 @@ export default function PopularTvShows() {
             spaceBetween={20}
             slidesPerView="auto"
             slides={tvShows}
+            wrapperClassName="popular-controls"
             slideClassName={styles.popular__slide}
             controlsClassName={styles.popular__controls}
           >
             {tvShows.map((show) => (
-              <PopularTvShow show={show} />
+              <PopularTvShow show={show} key={show.id} />
             ))}
           </Slider>
         </div>

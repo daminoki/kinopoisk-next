@@ -5,8 +5,8 @@ import getImg from '@/utils/getImg';
 import styles from './PopularTvShow.module.scss';
 
 export default function PopularTvShow({ show }) {
-  const [startYear] = useState(show.releaseYears[0].start);
-  const [endYear] = useState(show.releaseYears[0].end);
+  const [startYear] = useState(show.releaseYears ? show.releaseYears[0]?.start : show.year);
+  const [endYear] = useState(show.releaseYears ? show.releaseYears[0]?.end : show.year);
 
   const getReleaseYears = useMemo(() => {
     if (startYear === endYear) {

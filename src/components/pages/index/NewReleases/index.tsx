@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import Loader from '@/components/ui/Loader';
+import Slider from '@/components/ui/Slider';
+import PopularTvShow from '@/components/pages/index/PopularTvShows/PopularTvShow';
+
 import api from '@/api';
 import styles from './NewReleases.module.scss';
 
@@ -12,8 +15,10 @@ export default function NewReleases() {
   const searchParams = {
     page: 1,
     limit: 15,
-    'fees.world': '1000-666666',
-    'premiere.cinema': '01.01.2024-01.04.2024',
+    year: '2024',
+    sortField: 'rating.kp',
+    sortType: '-1',
+    'votes.kp': '50000 - 1000000',
   };
 
   const fetchNewReleases = async () => {
@@ -39,13 +44,19 @@ export default function NewReleases() {
       {!isLoading && !newReleases.length && <div>Упс! Ничего не найдено</div>}
 
       {!isLoading && newReleases.length && (
-        <div className={styles['new-releases__list']}>
-          {newReleases.map((release) => (
-            <div key={release.id} className={styles['new-releases__item']}>
-              <img src={release.poster.url} alt={release.name} />
-              <p>{release.name}</p>
-            </div>
-          ))}
+        <div className={styles['new-releases__slider']}>
+          <Slider
+            spaceBetween={20}
+            slidesPerView="auto"
+            slides={newReleases}
+            wrapperClassName="new-releases-controls"
+            slideClassName={styles['new-releases__slide']}
+            controlsClassName={styles['new-releases__controls']}
+          >
+            {newReleases.map((release) => (
+              <PopularTvShow show={release} key={release.id} />
+            ))}
+          </Slider>
         </div>
       )}
     </div>

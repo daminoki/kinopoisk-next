@@ -8,16 +8,17 @@ interface ISliderProps {
   spaceBetween: number;
   slidesPerView: number | 'auto';
   slides: any[];
+  wrapperClassName: string;
   slideClassName?: string;
   controlsClassName?: string;
   children: React.ReactNode;
 }
 
 export default function Slider({
-  spaceBetween, slidesPerView, slides, slideClassName, controlsClassName, children,
+  spaceBetween, slidesPerView, slides, wrapperClassName, slideClassName, controlsClassName, children,
 }: ISliderProps) {
   const slideClasses = slideClassName ? `${styles.slide} ${slideClassName}` : styles.slide;
-  const controlsClasses = controlsClassName ? `${styles.controls} ${controlsClassName}` : styles.controls;
+  const controlsClasses = controlsClassName ? `${controlsClassName}` : styles.controls;
 
   return (
     <>
@@ -27,8 +28,8 @@ export default function Slider({
         modules={[Navigation]}
         navigation={
           {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
+            nextEl: `.${wrapperClassName} .swiper-button-next`,
+            prevEl: `.${wrapperClassName} .swiper-button-prev`,
           }
         }
       >
@@ -40,7 +41,7 @@ export default function Slider({
         ))}
       </Swiper>
 
-      <div className={controlsClasses}>
+      <div className={controlsClasses ? `${controlsClasses} ${wrapperClassName}` : ''}>
         <SliderButton direction="prev" className="swiper-button-prev" />
         <SliderButton direction="next" className="swiper-button-next" />
       </div>
