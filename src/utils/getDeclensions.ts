@@ -9,7 +9,10 @@ interface IDeclensions {
 
 const pluralRules = new Intl.PluralRules('ru-RU');
 
-export default function getDeclensions(count: number, declensions: IDeclensions) {
+export default function getDeclensions(
+  count: number,
+  declensions: IDeclensions,
+) {
   const rule = pluralRules.select(count);
   return declensions[rule];
 }

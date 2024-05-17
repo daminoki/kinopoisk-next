@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+
 import Search from './page';
 
 export async function generateMetadata(): Promise<Metadata> {

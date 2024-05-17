@@ -1,8 +1,10 @@
 'use client';
 
-import { IFilm } from '@/entities/films';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 import Button from '@/components/ui/Button';
+import type { IFilm } from '@/entities/films';
+
 import styles from './FilmFacts.module.scss';
 
 interface FilmFactsProps {
@@ -23,9 +25,7 @@ export default function FilmFacts({ film }: FilmFactsProps) {
 
   return (
     <div className={styles['film-facts']}>
-      <p className={styles['film-facts__title']}>
-        Знаете ли вы, что…
-      </p>
+      <p className={styles['film-facts__title']}>Знаете ли вы, что…</p>
 
       <ul className={styles['film-facts__list']}>
         {factsList.map((fact) => (
@@ -41,7 +41,6 @@ export default function FilmFacts({ film }: FilmFactsProps) {
             className={styles['film-facts__more']}
             onClick={handleButtonClick}
             group="primary"
-            type="button"
           >
             Показать еще
           </Button>
