@@ -1,7 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+
 import Search from '@/components/layouts/Header/Search';
+
 import Logo from '../../../../public/images/header-logo.svg';
 import styles from './Header.module.scss';
 

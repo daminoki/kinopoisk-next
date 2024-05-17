@@ -1,17 +1,20 @@
-import debounce from '@/utils/debounce';
-import {
-  useState, useEffect, useMemo, useRef,
-} from 'react';
-import SearchItem from '@/components/layouts/Header/Search/SearchItem';
-import api from '@/api';
 import { useRouter } from 'next/navigation';
+import { useEffect, useMemo, useRef, useState } from 'react';
+
+import api from '@/api';
+import SearchItem from '@/components/layouts/Header/Search/SearchItem';
 import Loader from '@/components/ui/Loader';
+import type { ISingleSearchResult } from '@/entities/films';
+import debounce from '@/utils/debounce';
+
 import CloseIcon from '../../../../../public/icons/close.svg';
 import SearchIcon from '../../../../../public/icons/search.svg';
 import styles from './Search.module.scss';
 
 export default function Search() {
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState<ISingleSearchResult[] | []>(
+    [],
+  );
   const [searchParams, setSearchParams] = useState({
     page: 1,
     limit: 5,
@@ -39,7 +42,7 @@ export default function Search() {
   };
 
   const optimizesHandleInputChange = useMemo(() => {
-    const callback = (value) => {
+    const callback = (value: string) => {
       ref.current(value);
       setSearchParams({
         ...searchParams,
@@ -60,7 +63,9 @@ export default function Search() {
     fetchData();
   }, [searchParams.query]);
 
-  const handleSearch = (event) => {
+  const handleSearch = (
+    event: React.FormEvent<HTMLFormElement | HTMLButtonElement>,
+  ) => {
     event.preventDefault();
     setIsDropdownOpened(false);
 
@@ -76,8 +81,11 @@ export default function Search() {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (!event.target.closest(`.${styles.search}`)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        !event.target ||
+        !(event.target as HTMLElement).closest(`.${styles.search}`)
+      ) {
         setIsDropdownOpened(false);
       }
     };
@@ -99,7 +107,11 @@ export default function Search() {
       <form onSubmit={(e) => handleSearch(e)}>
         <input
           value={searchValue}
-          className={isSearchActive ? `${styles.search__input} ${styles.search__input_active}` : `${styles.search__input}`}
+          className={
+            isSearchActive
+              ? `${styles.search__input} ${styles.search__input_active}`
+              : `${styles.search__input}`
+          }
           type="search"
           placeholder="Найти"
           onInput={(e) => {
@@ -110,15 +122,34 @@ export default function Search() {
         />
       </form>
 
-      <button type="button" className={styles.search__submit} onClick={(e) => handleSearch(e)} aria-label="Поиск">
+      <button
+        type="button"
+        className={styles.search__submit}
+        onClick={(e) => handleSearch(e)}
+        aria-label="Поиск"
+      >
         <SearchIcon />
       </button>
 
-      <button type="button" className={styles['search__submit-mob']} onClick={handleSearchButtonClick} aria-label="Мобильный поиск">
+      <button
+        type="button"
+        className={styles['search__submit-mob']}
+        onClick={handleSearchButtonClick}
+        aria-label="Мобильный поиск"
+      >
         <SearchIcon />
       </button>
 
-      <button type="button" className={isSearchActive ? `${styles.search__close} ${styles.search__close_active}` : `${styles.search__close}`} onClick={handleCloseClick} aria-label="Закрыть поиск">
+      <button
+        type="button"
+        className={
+          isSearchActive
+            ? `${styles.search__close} ${styles.search__close_active}`
+            : `${styles.search__close}`
+        }
+        onClick={handleCloseClick}
+        aria-label="Закрыть поиск"
+      >
         <CloseIcon />
       </button>
 
@@ -144,9 +175,12 @@ export default function Search() {
                 ))}
               </ul>
 
-              {searchParams.query
-              && (
-                <button type="button" className={styles['search__view-all']} onClick={(e) => handleSearch(e)}>
+              {searchParams.query && (
+                <button
+                  type="button"
+                  className={styles['search__view-all']}
+                  onClick={(e) => handleSearch(e)}
+                >
                   Показать все
                 </button>
               )}

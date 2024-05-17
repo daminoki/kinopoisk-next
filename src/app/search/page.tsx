@@ -1,22 +1,30 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+
 import api from '@/api';
 import SearchList from '@/components/pages/search/SearchList';
 import Loader from '@/components/ui/Loader';
+import type { IFetchParams } from '@/entities/fetchParams';
+import type { ISingleSearchResult } from '@/entities/films';
+
 import styles from './page.module.scss';
 
 export default function Search() {
   const queryParams = useSearchParams();
-  const [searchResult, setSearchResult] = useState([]);
-  const [searchParams, setSearchParams] = useState({
+  const [searchResult, setSearchResult] = useState<ISingleSearchResult[] | []>(
+    [],
+  );
+  const [searchParams, setSearchParams] = useState<IFetchParams>({
     page: 1,
     limit: 10,
     query: '',
   });
   const [isLoading, setIsLoading] = useState(true);
-  const [searchResultTotal, setSearchResultTotal] = useState(null);
+  const [searchResultTotal, setSearchResultTotal] = useState<number | null>(
+    null,
+  );
   const [hasMore, setHasMore] = useState(false);
   const [isMoreLoading, setIsMoreLoading] = useState(false);
 
@@ -25,7 +33,8 @@ export default function Search() {
       return;
     }
 
-    const { docs, total, pages } = await api.movie.getSearchResult(searchParams);
+    const { docs, total, pages } =
+      await api.movie.getSearchResult(searchParams);
 
     setSearchResult((prevSearchResult) => {
       if (searchParams.page > 1) {
@@ -71,15 +80,15 @@ export default function Search() {
       {isLoading && <Loader />}
 
       {!isLoading && searchResultTotal === 0 && (
-        <p className={styles.search__empty}>По вашему запросу ничего не найдено</p>
+        <p className={styles.search__empty}>
+          По вашему запросу ничего не найдено
+        </p>
       )}
 
       {!isLoading && searchResult.length > 0 && (
         <>
           <p className={styles.search__total}>
-            Всего найдено:
-            {' '}
-            {searchResultTotal}
+            Всего найдено: {searchResultTotal}
           </p>
 
           <SearchList

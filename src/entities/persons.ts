@@ -36,7 +36,6 @@ export interface IPerson {
   facts?: [
     {
       value: string;
-
     },
   ];
   movies?: [

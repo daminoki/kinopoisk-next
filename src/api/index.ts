@@ -1,4 +1,6 @@
 import * as movie from './movie';
 import * as person from './person';
 
-export default { movie, person };
+const exports = { movie, person };
+
+export default exports;

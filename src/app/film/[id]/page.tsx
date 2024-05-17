@@ -1,12 +1,18 @@
-import { IFilm } from '@/entities/films';
-import api from '@/api';
 import type { Metadata } from 'next';
-import FilmSidebar from '@/components/pages/film/FilmSidebar';
+
+import api from '@/api';
 import FilmInfo from '@/components/pages/film/FilmInfo';
 import FilmMore from '@/components/pages/film/FilmMore';
+import FilmSidebar from '@/components/pages/film/FilmSidebar';
+import type { IFilm } from '@/entities/films';
+
 import styles from './page.module.scss';
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
   const film: IFilm = await api.movie.getFilm(params.id);
 
   return {

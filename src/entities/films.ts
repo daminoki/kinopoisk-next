@@ -144,7 +144,6 @@ interface IFilmSequalAndPrequel {
   alternativeName: string;
   type: string;
   poster: IFilmImage;
-
 }
 export interface IFilm {
   id: number;
@@ -279,7 +278,13 @@ export interface IUniversalSearchResult {
       alternativeName: string | null;
       enName: string | null;
       names: IFilmName[];
-      type: 'movie' | 'tv-series' | 'cartoon' | 'anime' | 'animated-series' | 'tv-show';
+      type:
+        | 'movie'
+        | 'tv-series'
+        | 'cartoon'
+        | 'anime'
+        | 'animated-series'
+        | 'tv-show';
       typeNumber: 1 | 2 | 3 | 4 | 5 | 6;
       year: number | null;
       description: string | null;
@@ -298,7 +303,7 @@ export interface IUniversalSearchResult {
       backdrop?: IFilmImage;
       videos?: {
         trailers?: IFilmVideo[];
-        teasers: IFilmVideo[]
+        teasers: IFilmVideo[];
       };
       genres?: [
         {
@@ -311,7 +316,7 @@ export interface IUniversalSearchResult {
         },
       ];
       persons?: IFilmPerson[];
-      reviewInfo?: IFilmReviewInfo
+      reviewInfo?: IFilmReviewInfo;
       seasonsInfo?: IFilmSeasonInfo[];
       budget?: IFilmCurrency;
       fees?: {
@@ -346,4 +351,49 @@ export interface IUniversalSearchResult {
   limit: number;
   page: number;
   pages: number;
+}
+
+export interface ISingleSearchResult {
+  id: number;
+  name: string;
+  alternativeName: string;
+  enName: string;
+  type: string;
+  year: number;
+  description: string;
+  shortDescription: string;
+  movieLength: number;
+  names: IFilmName[];
+  externalId: IFilmExternalId | null;
+  logo?: {
+    url: string | null;
+  };
+  poster?: IFilmImage | null;
+  backdrop?: IFilmImage;
+  rating?: IFilmRating;
+  votes?: IFilmVotes;
+  genres?: [
+    {
+      name: string;
+    },
+  ];
+  countries?: [
+    {
+      name: string;
+    },
+  ];
+  releaseYears?: IFilmReleaseYears[];
+  isSeries: boolean;
+  ticketsOnSale: boolean;
+  totalSeriesLength: number;
+  seriesLength: number;
+  ratingMpaa: string;
+  ageRating: number;
+  top10: number | null;
+  top250: number | null;
+  typeNumber: 1 | 2 | 3 | 4 | 5 | 6;
+  status: string;
+  internalNames: string[];
+  internalRating: number;
+  internalVotes: number;
 }

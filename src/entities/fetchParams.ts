@@ -1,7 +1,7 @@
 export interface IFetchParams {
   page: number;
   limit: number;
-  query?: string;
+  query?: string | null;
   type?: string;
   top250?: string;
   sortField?: string;

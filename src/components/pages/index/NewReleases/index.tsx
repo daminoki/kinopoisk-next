@@ -1,16 +1,18 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Loader from '@/components/ui/Loader';
-import Slider from '@/components/ui/Slider';
-import PopularTvShow from '@/components/pages/index/PopularTvShows/PopularTvShow';
+import { useEffect, useState } from 'react';
 
 import api from '@/api';
+import PopularTvShow from '@/components/pages/index/PopularTvShows/PopularTvShow';
+import Loader from '@/components/ui/Loader';
+import Slider from '@/components/ui/Slider';
+import type { IFilm } from '@/entities/films';
+
 import styles from './NewReleases.module.scss';
 
 export default function NewReleases() {
   const [isLoading, setIsLoading] = useState(true);
-  const [newReleases, setNewReleases] = useState([]);
+  const [newReleases, setNewReleases] = useState<IFilm[] | []>([]);
 
   const searchParams = {
     page: 1,

@@ -1,17 +1,21 @@
 import 'swiper/css';
-import { Swiper, SwiperSlide } from 'swiper/react';
+
 import { Navigation } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
 import SliderButton from '@/components/ui/SliderButton';
+import type { IFilm } from '@/entities/films';
+
 import styles from './Slider.module.scss';
 
 interface ISliderProps {
   spaceBetween: number;
   slidesPerView: number | 'auto';
-  slides: any[];
+  slides: IFilm[];
   wrapperClassName: string;
   slideClassName?: string;
   controlsClassName?: string;
-  children: React.ReactNode;
+  children: React.ReactNode[];
 }
 
 export default function Slider({
@@ -23,8 +27,12 @@ export default function Slider({
   controlsClassName,
   children,
 }: ISliderProps) {
-  const slideClasses = slideClassName ? `${styles.slide} ${slideClassName}` : styles.slide;
-  const controlsClasses = controlsClassName ? `${controlsClassName}` : styles.controls;
+  const slideClasses = slideClassName
+    ? `${styles.slide} ${slideClassName}`
+    : styles.slide;
+  const controlsClasses = controlsClassName
+    ? `${controlsClassName}`
+    : styles.controls;
 
   return (
     <>
@@ -32,22 +40,23 @@ export default function Slider({
         spaceBetween={spaceBetween}
         slidesPerView={slidesPerView}
         modules={[Navigation]}
-        navigation={
-          {
-            nextEl: `.${wrapperClassName} .swiper-button-next`,
-            prevEl: `.${wrapperClassName} .swiper-button-prev`,
-          }
-        }
+        navigation={{
+          nextEl: `.${wrapperClassName} .swiper-button-next`,
+          prevEl: `.${wrapperClassName} .swiper-button-prev`,
+        }}
       >
         {slides.map((slide, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <SwiperSlide key={index} className={slideClasses}>
+          <SwiperSlide key={slide.id} className={slideClasses}>
             {children[index]}
           </SwiperSlide>
         ))}
       </Swiper>
 
-      <div className={controlsClasses ? `${controlsClasses} ${wrapperClassName}` : ''}>
+      <div
+        className={
+          controlsClasses ? `${controlsClasses} ${wrapperClassName}` : ''
+        }
+      >
         <SliderButton direction="prev" className="swiper-button-prev" />
         <SliderButton direction="next" className="swiper-button-next" />
       </div>
