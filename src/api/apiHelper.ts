@@ -12,7 +12,11 @@ axios.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-export default async function apiHelper(method: TMethod, url: string, ...args: any[]) {
+export default async function apiHelper(
+  method: TMethod,
+  url: string,
+  ...args: any[]
+) {
   const baseUrl = 'https://api.kinopoisk.dev';
 
   try {

@@ -1,15 +1,19 @@
 'use client';
 
 import 'swiper/css';
-import { useState, useEffect } from 'react';
+
+import { useEffect, useState } from 'react';
+
 import api from '@/api';
 import PopularTvShow from '@/components/pages/index/PopularTvShows/PopularTvShow';
 import Loader from '@/components/ui/Loader';
 import Slider from '@/components/ui/Slider';
+import type { IFilm } from '@/entities/films';
+
 import styles from './PopularTvShows.module.scss';
 
 export default function PopularTvShows() {
-  const [tvShows, setTvShows] = useState([]);
+  const [tvShows, setTvShows] = useState<IFilm[] | []>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const searchParams = {
