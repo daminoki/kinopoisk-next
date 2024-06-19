@@ -9,4 +9,5 @@ export interface IFetchParams {
   'premiere.world'?: string;
   status?: string;
   'votes.await'?: string;
+  lists?: string;
 }

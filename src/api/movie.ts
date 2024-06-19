@@ -22,3 +22,8 @@ export const getNewReleases = async (
   params: IFetchParams,
 ): Promise<IUniversalSearchResult> =>
   apiHelper('get', 'v1.4/movie', { params });
+
+export const getFilmsList = async (
+  params: IFetchParams,
+): Promise<IUniversalSearchResult> =>
+  apiHelper('get', 'v1.4/movie', { params });
