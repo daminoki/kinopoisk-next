@@ -7,6 +7,7 @@ import { Wix_Madefor_Display } from 'next/font/google';
 import Footer from '@/components/layouts/Footer';
 import Header from '@/components/layouts/Header';
 import Nav from '@/components/layouts/Nav';
+import QueryProvider from '@/components/providers/QueryProvider';
 
 const font = Wix_Madefor_Display({ subsets: ['latin'] });
 
@@ -22,16 +23,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className={font.className}>
-        <div className="page-container">
-          <Header />
-          <main className="page container">
-            <Nav />
-            <div className="page-content">{children}</div>
-          </main>
-          <Footer />
-        </div>
-      </body>
+      <QueryProvider>
+        <body className={font.className}>
+          <div className="page-container">
+            <Header />
+            <main className="page container">
+              <Nav />
+              <div className="page-content">{children}</div>
+            </main>
+            <Footer />
+          </div>
+        </body>
+      </QueryProvider>
     </html>
   );
 }

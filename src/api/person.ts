@@ -1,4 +1,4 @@
-import apiHelper from '@/api/apiHelper';
+import { apiHelper } from '@/api/apiHelper';
 import type { IPerson } from '@/entities/persons';
 
 // eslint-disable-next-line

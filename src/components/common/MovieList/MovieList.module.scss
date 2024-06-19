@@ -1,9 +1,7 @@
-.new-releases {
-  @include tablet {
-    padding-top: 30px;
+.movie-list {
+  &:not(:first-child) {
+    padding-top: 40px;
   }
-
-  padding-top: 40px;
 
   &__title {
     @include h4;
@@ -22,6 +20,7 @@
 
   &__slide {
     width: 148px;
+    margin-right: 20px;
   }
 
   &__controls {
@@ -38,4 +37,12 @@
     pointer-events: none;
     z-index: 1;
   }
+
+
+  &__error {
+    @include txt16;
+
+    color: var(--typo-dark);
+  }
 }
+
