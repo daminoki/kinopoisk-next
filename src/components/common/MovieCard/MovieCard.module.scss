@@ -1,11 +1,11 @@
 .movie-card {
   @media (hover: hover) and (pointer: fine) {
     &:hover {
-      .popular-show__img img {
+      .movie-card__img img {
         transform: scale(1.05);
       }
 
-      .popular-show__title {
+      .movie-card__title {
         color: var(--typo-contrast);
       }
     }

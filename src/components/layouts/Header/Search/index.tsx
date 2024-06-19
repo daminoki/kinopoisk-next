@@ -1,75 +1,60 @@
+'use client';
+
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import api from '@/api';
 import SearchItem from '@/components/layouts/Header/Search/SearchItem';
 import Loader from '@/components/ui/Loader';
-import type { ISingleSearchResult } from '@/entities/films';
-import debounce from '@/utils/debounce';
+import CloseIcon from '@/public/icons/close.svg';
+import SearchIcon from '@/public/icons/search.svg';
 
-import CloseIcon from '../../../../../public/icons/close.svg';
-import SearchIcon from '../../../../../public/icons/search.svg';
 import styles from './Search.module.scss';
 
 export default function Search() {
-  const [searchResult, setSearchResult] = useState<ISingleSearchResult[] | []>(
-    [],
-  );
-  const [searchParams, setSearchParams] = useState({
-    page: 1,
-    limit: 5,
-    query: '',
-  });
   const [searchValue, setSearchValue] = useState('');
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [isSearchActive, setIsSearchActive] = useState(false);
-  const ref = useRef<any>();
+  const [debouncedSearchValue, setDebouncedSearchValue] = useState('');
   const router = useRouter();
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchValue(searchValue);
+    }, 500);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchValue]);
+
+  const {
+    data: searchData,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ['short-search', debouncedSearchValue],
+    queryFn: () =>
+      api.movie.getSearchResult({
+        page: 1,
+        limit: 5,
+        query: debouncedSearchValue,
+      }),
+    select: (data) => data.docs,
+    enabled: !!debouncedSearchValue,
+  });
 
   const handleInputChange = (value: string) => {
     setSearchValue(value);
+    setIsDropdownOpened(true);
   };
-
-  useEffect(() => {
-    ref.current = handleInputChange;
-  }, [handleInputChange]);
-
-  const fetchSearchResult = async () => {
-    const result = await api.movie.getSearchResult(searchParams);
-
-    setSearchResult(result.docs);
-  };
-
-  const optimizesHandleInputChange = useMemo(() => {
-    const callback = (value: string) => {
-      ref.current(value);
-      setSearchParams({
-        ...searchParams,
-        query: value,
-      });
-    };
-
-    return debounce(callback, 500);
-  }, [searchParams]);
-
-  useEffect(() => {
-    async function fetchData() {
-      setIsLoading(true);
-      await fetchSearchResult();
-      setIsLoading(false);
-    }
-
-    fetchData();
-  }, [searchParams.query]);
 
   const handleSearch = (
     event: React.FormEvent<HTMLFormElement | HTMLButtonElement>,
   ) => {
     event.preventDefault();
     setIsDropdownOpened(false);
-
-    console.log(searchValue);
 
     if (searchValue) {
       router.push(`/search?query=${searchValue}`);
@@ -114,11 +99,8 @@ export default function Search() {
           }
           type="search"
           placeholder="Найти"
-          onInput={(e) => {
-            handleInputChange(e.currentTarget.value);
-            optimizesHandleInputChange(e.currentTarget.value);
-          }}
-          onFocus={() => setIsDropdownOpened(!isDropdownOpened)}
+          onInput={(e) => handleInputChange(e.currentTarget.value)}
+          onFocus={() => setIsDropdownOpened(true)}
         />
       </form>
 
@@ -157,34 +139,36 @@ export default function Search() {
         <div className={styles.search__result}>
           {isLoading && <Loader />}
 
-          {!isLoading && searchResult.length === 0 && (
+          {error && (
+            <p className={styles.search__empty}>
+              Произошла ошибка при загрузке данных. Пожалуйста, попробуйте позже
+            </p>
+          )}
+
+          {searchData && !searchData.length && (
             <p className={styles.search__empty}>
               По вашему запросу ничего не найдено
             </p>
           )}
 
-          {!isLoading && searchResult.length > 0 && (
-            <>
-              <ul className={styles.search__list}>
-                {searchResult.map((result) => (
-                  <SearchItem
-                    key={result.id}
-                    show={result}
-                    setIsDropdownOpened={setIsDropdownOpened}
-                  />
-                ))}
-              </ul>
+          <ul className={styles.search__list}>
+            {searchData?.map((result) => (
+              <SearchItem
+                key={result.id}
+                show={result}
+                setIsDropdownOpened={setIsDropdownOpened}
+              />
+            ))}
+          </ul>
 
-              {searchParams.query && (
-                <button
-                  type="button"
-                  className={styles['search__view-all']}
-                  onClick={(e) => handleSearch(e)}
-                >
-                  Показать все
-                </button>
-              )}
-            </>
+          {debouncedSearchValue && (
+            <button
+              type="button"
+              className={styles['search__view-all']}
+              onClick={(e) => handleSearch(e)}
+            >
+              Показать все
+            </button>
           )}
         </div>
       )}

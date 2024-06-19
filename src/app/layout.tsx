@@ -23,18 +23,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className={font.className}>
-        <div className="page-container">
-          <Header />
-          <main className="page container">
-            <Nav />
-            <QueryProvider>
+      <QueryProvider>
+        <body className={font.className}>
+          <div className="page-container">
+            <Header />
+            <main className="page container">
+              <Nav />
               <div className="page-content">{children}</div>
-            </QueryProvider>
-          </main>
-          <Footer />
-        </div>
-      </body>
+            </main>
+            <Footer />
+          </div>
+        </body>
+      </QueryProvider>
     </html>
   );
 }
