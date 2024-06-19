@@ -35,6 +35,7 @@ export default function MovieCard({ show }: { show: IFilm }) {
           alt={show.name || 'Изображение'}
           width={150}
           height={225}
+          priority
         />
       </div>
       <div className={styles['movie-card__info']}>

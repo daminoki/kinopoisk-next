@@ -1,7 +1,16 @@
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
+
+import api from '@/api';
 import MovieList from '@/components/common/MovieList';
 import type { IFetchMovieParams } from '@/entities/fetchParams';
 
-export default function PopularTvShows() {
+export default async function PopularTvShows() {
+  const queryClient = new QueryClient();
+
   const searchParams: IFetchMovieParams = {
     page: 1,
     limit: 15,
@@ -12,11 +21,19 @@ export default function PopularTvShows() {
     sortType: '-1',
   };
 
+  await queryClient.prefetchQuery({
+    queryKey: ['popular-shows', searchParams],
+    queryFn: () => api.movie.getMovieList(searchParams),
+  });
+
   return (
-    <MovieList
-      title="Популярные сериалы"
-      searchParams={searchParams}
-      sliderControlsName="popular-controls"
-    />
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <MovieList
+        title="Популярные сериалы"
+        searchParams={searchParams}
+        sliderControlsName="popular-controls"
+        queryKey="popular-shows"
+      />
+    </HydrationBoundary>
   );
 }

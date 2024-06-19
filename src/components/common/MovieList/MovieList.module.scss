@@ -20,6 +20,7 @@
 
   &__slide {
     width: 148px;
+    margin-right: 20px;
   }
 
   &__controls {
@@ -36,4 +37,12 @@
     pointer-events: none;
     z-index: 1;
   }
+
+
+  &__error {
+    @include txt16;
+
+    color: var(--typo-dark);
+  }
 }
+

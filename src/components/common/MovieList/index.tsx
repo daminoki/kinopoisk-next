@@ -14,15 +14,17 @@ interface MovieListProps {
   title: string;
   searchParams: IFetchMovieParams;
   sliderControlsName: string;
+  queryKey: string;
 }
 
 export default function MovieList({
   title,
   searchParams,
   sliderControlsName,
+  queryKey,
 }: MovieListProps) {
   const { data, isLoading, error } = useQuery({
-    queryKey: [title, searchParams],
+    queryKey: [queryKey, searchParams],
     queryFn: () => api.movie.getMovieList(searchParams),
   });
 
@@ -30,22 +32,32 @@ export default function MovieList({
 
   if (isLoading)
     return (
-      <div className={styles.popular}>
-        <h2 className={styles.popular__title}>{title}</h2>
+      <div className={styles['movie-list']}>
+        <h2 className={styles['movie-list__title']}>{title}</h2>
         <Loader />
       </div>
     );
 
-  if (error) return <div>Упс! Произошла ошибка</div>;
+  if (error)
+    return (
+      <div className={styles['movie-list']}>
+        <h2 className={styles['movie-list__title']}>{title}</h2>
+        <p className={styles['movie-list__error']}>
+          Произошла ошибка при загрузке данных. Пожалуйста, попробуйте позже
+        </p>
+      </div>
+    );
 
   return (
     <div className={styles['movie-list']}>
       <h2 className={styles['movie-list__title']}>{title}</h2>
-      {!movies.length && <div>Упс! Ничего не найдено</div>}
+      {!movies.length && (
+        <p className="movie-list__error">Упс! Ничего не найдено</p>
+      )}
       {movies.length > 0 && (
         <div className={styles['movie-list__slider']}>
           <Slider
-            spaceBetween={20}
+            spaceBetween={0}
             slidesPerView="auto"
             slides={movies}
             wrapperClassName={sliderControlsName}
