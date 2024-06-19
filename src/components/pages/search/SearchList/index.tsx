@@ -22,8 +22,7 @@ export default function SearchList({
     <>
       <ul className={styles['search-list']}>
         {searchResult.map((item, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <li className={styles['search-list__item']} key={index}>
+          <li className={styles['search-list__item']} key={item.id}>
             <SearchItem film={item} index={index} />
           </li>
         ))}

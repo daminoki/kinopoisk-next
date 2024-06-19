@@ -1,0 +1,6 @@
+.title {
+  @include h2;
+
+  color: var(--typo-dark);
+  padding-bottom: 20px;
+}
