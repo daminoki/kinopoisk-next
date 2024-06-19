@@ -1,4 +1,4 @@
-export const filmsListData = [
+const filmsListData = [
   {
     id: 1,
     name: '250 лучших фильмов',
@@ -16,3 +16,5 @@ export const filmsListData = [
     slug: 'top500',
   },
 ];
+
+export default filmsListData;

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import List from '@/components/common/List';
-import { filmsListData } from '@/static/filmsListData';
+import filmsListData from '@/static/filmsListData';
 
 import styles from './page.module.scss';
 
