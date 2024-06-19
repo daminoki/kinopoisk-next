@@ -1,4 +1,4 @@
-export interface IFetchParams {
+export interface IFetchMovieParams {
   page: number;
   limit: number;
   query?: string | null;
@@ -10,4 +10,6 @@ export interface IFetchParams {
   status?: string;
   'votes.await'?: string;
   lists?: string;
+  'votes.kp'?: string;
+  year?: string;
 }

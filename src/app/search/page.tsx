@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from 'react';
 import api from '@/api';
 import SearchList from '@/components/pages/search/SearchList';
 import Loader from '@/components/ui/Loader';
-import type { IFetchParams } from '@/entities/fetchParams';
+import type { IFetchMovieParams } from '@/entities/fetchParams';
 import type { ISingleSearchResult } from '@/entities/films';
 
 import styles from './page.module.scss';
@@ -16,7 +16,7 @@ export default function Search() {
   const [searchResult, setSearchResult] = useState<ISingleSearchResult[] | []>(
     [],
   );
-  const [searchParams, setSearchParams] = useState<IFetchParams>({
+  const [searchParams, setSearchParams] = useState<IFetchMovieParams>({
     page: 1,
     limit: 10,
     query: '',

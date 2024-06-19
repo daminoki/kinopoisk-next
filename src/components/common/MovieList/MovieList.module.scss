@@ -1,9 +1,7 @@
-.new-releases {
-  @include tablet {
-    padding-top: 30px;
+.movie-list {
+  &:not(:first-child) {
+    padding-top: 40px;
   }
-
-  padding-top: 40px;
 
   &__title {
     @include h4;

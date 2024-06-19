@@ -5,14 +5,14 @@ import { useMemo, useState } from 'react';
 import type { IFilm } from '@/entities/films';
 import getImg from '@/utils/getImg';
 
-import styles from './PopularTvShow.module.scss';
+import styles from './MovieCard.module.scss';
 
-export default function PopularTvShow({ show }: { show: IFilm }) {
+export default function MovieCard({ show }: { show: IFilm }) {
   const [startYear] = useState(
-    show.releaseYears ? show.releaseYears[0]?.start : show.year,
+    show.releaseYears?.length ? show.releaseYears[0]?.start : show.year,
   );
   const [endYear] = useState(
-    show.releaseYears ? show.releaseYears[0]?.end : show.year,
+    show.releaseYears?.length ? show.releaseYears[0]?.end : show.year,
   );
 
   const getReleaseYears = useMemo(() => {
@@ -28,8 +28,8 @@ export default function PopularTvShow({ show }: { show: IFilm }) {
   }, [startYear, endYear]);
 
   return (
-    <Link href={`/film/${show.id}`} className={styles['popular-show']}>
-      <div className={styles['popular-show__img']}>
+    <Link href={`/film/${show.id}`} className={styles['movie-card']}>
+      <div className={styles['movie-card__img']}>
         <Image
           src={getImg(show.poster?.url)}
           alt={show.name || 'Изображение'}
@@ -37,9 +37,9 @@ export default function PopularTvShow({ show }: { show: IFilm }) {
           height={225}
         />
       </div>
-      <div className={styles['popular-show__info']}>
-        <p className={styles['popular-show__title']}>{show.name}</p>
-        <p className={styles['popular-show__row']}>
+      <div className={styles['movie-card__info']}>
+        <p className={styles['movie-card__title']}>{show.name}</p>
+        <p className={styles['movie-card__row']}>
           {getReleaseYears}
           {', '}
           {show.genres && show.genres[0].name}

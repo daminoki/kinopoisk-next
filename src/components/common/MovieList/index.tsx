@@ -1,0 +1,63 @@
+'use client';
+
+import { useQuery } from '@tanstack/react-query';
+
+import api from '@/api';
+import MovieCard from '@/components/common/MovieCard';
+import Loader from '@/components/ui/Loader';
+import Slider from '@/components/ui/Slider';
+import type { IFetchMovieParams } from '@/entities/fetchParams';
+
+import styles from './MovieList.module.scss';
+
+interface MovieListProps {
+  title: string;
+  searchParams: IFetchMovieParams;
+  sliderControlsName: string;
+}
+
+export default function MovieList({
+  title,
+  searchParams,
+  sliderControlsName,
+}: MovieListProps) {
+  const { data, isLoading, error } = useQuery({
+    queryKey: [title, searchParams],
+    queryFn: () => api.movie.getMovieList(searchParams),
+  });
+
+  const movies = data?.docs ?? [];
+
+  if (isLoading)
+    return (
+      <div className={styles.popular}>
+        <h2 className={styles.popular__title}>{title}</h2>
+        <Loader />
+      </div>
+    );
+
+  if (error) return <div>Упс! Произошла ошибка</div>;
+
+  return (
+    <div className={styles['movie-list']}>
+      <h2 className={styles['movie-list__title']}>{title}</h2>
+      {!movies.length && <div>Упс! Ничего не найдено</div>}
+      {movies.length > 0 && (
+        <div className={styles['movie-list__slider']}>
+          <Slider
+            spaceBetween={20}
+            slidesPerView="auto"
+            slides={movies}
+            wrapperClassName={sliderControlsName}
+            slideClassName={styles['movie-list__slide']}
+            controlsClassName={styles['movie-list__controls']}
+          >
+            {movies.map((movie) => (
+              <MovieCard show={movie} key={movie.id} />
+            ))}
+          </Slider>
+        </div>
+      )}
+    </div>
+  );
+}
