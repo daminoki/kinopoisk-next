@@ -10,7 +10,7 @@ import type { IFetchMovieParams } from '@/entities/fetchParams';
 
 import styles from './MovieList.module.scss';
 
-interface MovieListProps {
+interface IMovieListProps {
   title: string;
   searchParams: IFetchMovieParams;
   sliderControlsName: string;
@@ -22,7 +22,7 @@ export default function MovieList({
   searchParams,
   sliderControlsName,
   queryKey,
-}: MovieListProps) {
+}: IMovieListProps) {
   const { data, isLoading, error } = useQuery({
     queryKey: [queryKey, searchParams],
     queryFn: () => api.movie.getMovieList(searchParams),

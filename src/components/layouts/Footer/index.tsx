@@ -12,7 +12,7 @@ export default function Footer() {
             © 2024 -{new Date().getFullYear()}, Kinopoisk Clone
           </p>
           <p className={styles.footer__author}>
-            Creator:
+            Creator:{' '}
             <a
               href="https://github.com/daminoki"
               className={styles.footer__link}
