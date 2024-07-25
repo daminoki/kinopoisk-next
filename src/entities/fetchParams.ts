@@ -12,4 +12,5 @@ export interface IFetchMovieParams {
   lists?: string;
   'votes.kp'?: string;
   year?: string;
+  'premiere.cinema'?: string;
 }
