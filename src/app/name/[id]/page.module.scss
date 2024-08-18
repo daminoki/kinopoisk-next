@@ -1,0 +1,7 @@
+.person {
+  &__base {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-gap: 20px;
+  }
+}

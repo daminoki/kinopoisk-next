@@ -1,6 +1,4 @@
-export default function formatPremiereDate(premiereDate: Date) {
-  const date = new Date(premiereDate);
-
+export default function formatDate(date: Date) {
   return new Intl.DateTimeFormat('ru-RU', {
     year: 'numeric',
     month: 'long',

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Fragment } from 'react';
 
 import type { IFilm } from '@/entities/films';
-import formatPremiereDate from '@/utils/formatDate';
+import formatDate from '@/utils/formatDate';
 import getDeclensions from '@/utils/getDeclensions';
 import getImg from '@/utils/getImg';
 
@@ -13,10 +13,30 @@ interface IFilmInfoProps {
 }
 
 export default function FilmInfo({ film }: IFilmInfoProps) {
-  function getProfession(): string[] | [] {
+  function getProfessions(): string[] {
     if (!film.persons) return [];
 
     return [...new Set(film.persons.map((person) => person.profession))];
+  }
+
+  function renderProfessionList(profession: string) {
+    const filteredPersons = film.persons?.filter(
+      (person) => person.profession === profession,
+    );
+
+    return (
+      <>
+        {filteredPersons?.slice(0, 10).map((person, ind) => (
+          <Fragment key={person.id}>
+            {ind > 0 && ', '}
+            <Link href={`/name/${person.id}`}>
+              {person.name || person.enName}
+            </Link>
+          </Fragment>
+        ))}
+        {filteredPersons && filteredPersons.length > 10 && ' и другие'}
+      </>
+    );
   }
 
   function formatNumber(number: number) {
@@ -58,7 +78,8 @@ export default function FilmInfo({ film }: IFilmInfoProps) {
     return getDeclensions(n, suffixes);
   }
 
-  // @ts-ignore
+  const professions = getProfessions();
+
   return (
     <>
       <div
@@ -164,25 +185,17 @@ export default function FilmInfo({ film }: IFilmInfoProps) {
           </div>
         )}
 
-        {getProfession().length > 0 && (
+        {professions.length > 0 && (
           <>
-            {getProfession().map((profession) => (
+            {professions.map((profession) => (
               <div key={profession} className={styles['film-info__about-item']}>
                 <p className={styles['film-info__about-title']}>
                   {profession.charAt(0).toUpperCase() + profession.slice(1)}
                 </p>
                 <p className={styles['film-info__about-text']}>
                   {film.persons &&
-                    film.persons
-                      .filter((person) => person.profession === profession)
-                      .map((person, ind) => (
-                        <Fragment key={person.id}>
-                          {ind > 0 && ', '}
-                          <Link href={`/name/${person.id}`}>
-                            {person.name || person.enName}
-                          </Link>
-                        </Fragment>
-                      ))}
+                    film.persons.length > 0 &&
+                    renderProfessionList(profession)}
                 </p>
               </div>
             ))}
@@ -211,7 +224,7 @@ export default function FilmInfo({ film }: IFilmInfoProps) {
           <div className={styles['film-info__about-item']}>
             <p className={styles['film-info__about-title']}>Премьера в мире</p>
             <p className={styles['film-info__about-text']}>
-              {formatPremiereDate(film.premiere.world)}
+              {formatDate(new Date(film.premiere.world))}
             </p>
           </div>
         )}
