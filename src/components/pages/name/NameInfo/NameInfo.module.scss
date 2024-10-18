@@ -3,9 +3,8 @@
     @include h2;
 
     @include pad {
-      color: var(--typo-light);
-      position: relative;
-      z-index: 1;
+      padding: 20px 0 0;
+      text-align: center;
     }
 
     color: var(--typo-dark);

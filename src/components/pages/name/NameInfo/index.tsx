@@ -90,10 +90,14 @@ export default function NameInfo({ person }: INameInfoProps) {
           </div>
         )}
 
-        {person.spouses && (
+        {person.movies && person.movies.length > 0 && (
           <div className={styles['name-info__about-item']}>
-            <div className={styles['name-info__about-title']}>Супруг(а)</div>
-            <div className={styles['name-info__about-text']} />
+            <div className={styles['name-info__about-title']}>
+              Всего фильмов
+            </div>
+            <div className={styles['name-info__about-text']}>
+              {person.movies.length}
+            </div>
           </div>
         )}
       </div>
