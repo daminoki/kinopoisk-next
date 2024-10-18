@@ -1,7 +1,6 @@
 .film-sidebar {
   &__img {
     @include pad {
-      width: 100%;
       display: none;
     }
 

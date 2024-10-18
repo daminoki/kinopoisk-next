@@ -26,7 +26,7 @@ export interface IPerson {
     sex: string;
     children: number;
     relation: string;
-  };
+  }[];
   countAwards?: number;
   profession?: [
     {

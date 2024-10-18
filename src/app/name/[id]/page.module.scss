@@ -1,0 +1,11 @@
+.person {
+  &__base {
+    @include pad {
+      grid-template-columns: 1fr;
+    }
+  
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    column-gap: 20px;
+  }
+}
